@@ -1,0 +1,31 @@
+{
+    "baseDir": ".",
+    "outDir": "./docs",
+    "outputFormat": "html",
+    "files": [
+        "**.md",
+        "src/illustrations/**.md",
+        "src/common/**.md"
+    ],
+    "exclude": [
+        ".git",
+        "node_modules"
+    ],
+    "silent": false,
+    "tocFile": "toc.json",
+    "updateToc": false,
+    "excludeFromToc": [],
+    "dependencyGraph": "dependencies.json",
+    "template": "lits-template",
+    "bundle": true,
+    "watch": false,
+    "deployMode": "dev",
+    "frontMatter": {
+        "projectName": "Ray Tracing",
+        "repository": "https://github.com/mistlog/ray-tracing",
+        "download": "https://github.com/mistlog/ray-tracing",
+        "footer": "Copyright © 2020 mistlog",
+        "logo": "images/favicon.png",
+        "userTheme": "./docs/theme/user-theme.less"
+    }
+}
