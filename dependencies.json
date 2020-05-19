@@ -1,0 +1,444 @@
+{
+    "src/common/camera.js": {
+        "url": "src/common/camera.js.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "three": {
+        "dependencies": []
+    },
+    "src/common/camera.js.tsx": {
+        "url": "src/common/camera.js.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/common/math.js": {
+        "url": "src/common/math.js.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/common/defocus-blur-camera.js": {
+        "url": "src/common/defocus-blur-camera.js.html",
+        "dependencies": [
+            "src/common/camera",
+            "three",
+            "src/common/math"
+        ]
+    },
+    "src/common/camera": {
+        "dependencies": []
+    },
+    "src/common/math": {
+        "dependencies": []
+    },
+    "src/common/defocus-blur-camera.js.tsx": {
+        "url": "src/common/defocus-blur-camera.js.html",
+        "dependencies": [
+            "src/common/camera",
+            "three",
+            "src/common/math"
+        ]
+    },
+    "src/common/hit.js": {
+        "url": "src/common/hit.js.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/common/hit.js.tsx": {
+        "url": "src/common/hit.js.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/common/math.js.tsx": {
+        "url": "src/common/math.js.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/common/positionable-camera.js": {
+        "url": "src/common/positionable-camera.js.html",
+        "dependencies": [
+            "src/common/camera",
+            "three"
+        ]
+    },
+    "src/common/positionable-camera.js.tsx": {
+        "url": "src/common/positionable-camera.js.html",
+        "dependencies": [
+            "src/common/camera",
+            "three"
+        ]
+    },
+    "src/common/sphere.js": {
+        "url": "src/common/sphere.js.html",
+        "dependencies": [
+            "src/common/hit",
+            "three"
+        ]
+    },
+    "src/common/hit": {
+        "dependencies": []
+    },
+    "src/common/sphere.js.tsx": {
+        "url": "src/common/sphere.js.html",
+        "dependencies": [
+            "src/common/hit",
+            "three"
+        ]
+    },
+    "src/common/world.js": {
+        "url": "src/common/world.js.html",
+        "dependencies": [
+            "src/common/hit",
+            "three"
+        ]
+    },
+    "src/common/world.js.tsx": {
+        "url": "src/common/world.js.html",
+        "dependencies": [
+            "src/common/hit",
+            "three"
+        ]
+    },
+    "src/common/with-material/material.js": {
+        "url": "src/common/with-material/material.js.html",
+        "dependencies": [
+            "three",
+            "src/common/with-material/hit",
+            "src/common/math"
+        ]
+    },
+    "src/common/with-material/hit": {
+        "dependencies": []
+    },
+    "src/common/with-material/hit.js": {
+        "url": "src/common/with-material/hit.js.html",
+        "dependencies": [
+            "three",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/common/with-material/material": {
+        "dependencies": []
+    },
+    "src/common/with-material/hit.js.tsx": {
+        "url": "src/common/with-material/hit.js.html",
+        "dependencies": [
+            "three",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/common/with-material/material.js.tsx": {
+        "url": "src/common/with-material/material.js.html",
+        "dependencies": [
+            "three",
+            "src/common/with-material/hit",
+            "src/common/math"
+        ]
+    },
+    "src/common/with-material/world.js": {
+        "url": "src/common/with-material/world.js.html",
+        "dependencies": [
+            "src/common/with-material/hit",
+            "three"
+        ]
+    },
+    "src/common/with-material/sphere.js": {
+        "url": "src/common/with-material/sphere.js.html",
+        "dependencies": [
+            "src/common/with-material/hit",
+            "three",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/common/with-material/sphere-ocean.js": {
+        "url": "src/common/with-material/sphere-ocean.js.html",
+        "dependencies": [
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/with-material/material",
+            "src/common/math",
+            "three"
+        ]
+    },
+    "src/common/with-material/world": {
+        "dependencies": []
+    },
+    "src/common/with-material/sphere": {
+        "dependencies": []
+    },
+    "src/common/with-material/sphere-ocean.js.tsx": {
+        "url": "src/common/with-material/sphere-ocean.js.html",
+        "dependencies": [
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/with-material/material",
+            "src/common/math",
+            "three"
+        ]
+    },
+    "src/common/with-material/sphere.js.tsx": {
+        "url": "src/common/with-material/sphere.js.html",
+        "dependencies": [
+            "src/common/with-material/hit",
+            "three",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/common/with-material/world.js.tsx": {
+        "url": "src/common/with-material/world.js.html",
+        "dependencies": [
+            "src/common/with-material/hit",
+            "three"
+        ]
+    },
+    "src/illustrations/color-lerp.tsx": {
+        "url": "src/illustrations/color-lerp.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/illustrations/depth-limit.tsx": {
+        "url": "src/illustrations/depth-limit.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/illustrations/fix-shadow-acne.tsx": {
+        "url": "src/illustrations/fix-shadow-acne.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/world",
+            "src/common/sphere",
+            "src/common/camera",
+            "src/common/math"
+        ]
+    },
+    "svelte": {
+        "dependencies": []
+    },
+    "src/common/world": {
+        "dependencies": []
+    },
+    "src/common/sphere": {
+        "dependencies": []
+    },
+    "src/illustrations/fuzzed-metal.tsx": {
+        "url": "src/illustrations/fuzzed-metal.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/camera",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/illustrations/gamma-correction.tsx": {
+        "url": "src/illustrations/gamma-correction.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/world",
+            "src/common/sphere",
+            "src/common/camera",
+            "src/common/math"
+        ]
+    },
+    "src/illustrations/hollow-glass-sphere.tsx": {
+        "url": "src/illustrations/hollow-glass-sphere.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/camera",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/illustrations/lambertian-diffuse.tsx": {
+        "url": "src/illustrations/lambertian-diffuse.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/world",
+            "src/common/sphere",
+            "src/common/camera",
+            "src/common/math"
+        ]
+    },
+    "src/illustrations/scan-sky.tsx": {
+        "url": "src/illustrations/scan-sky.html",
+        "dependencies": [
+            "svelte",
+            "plotly",
+            "three"
+        ]
+    },
+    "plotly": {
+        "dependencies": []
+    },
+    "src/illustrations/sphere-ocean.tsx": {
+        "url": "src/illustrations/sphere-ocean.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/with-material/world",
+            "src/common/defocus-blur-camera",
+            "src/common/with-material/sphere-ocean"
+        ]
+    },
+    "src/common/defocus-blur-camera": {
+        "dependencies": []
+    },
+    "src/common/with-material/sphere-ocean": {
+        "dependencies": []
+    },
+    "src/illustrations/spike.tsx": {
+        "url": "src/illustrations/spike.html",
+        "dependencies": [
+            "three"
+        ]
+    },
+    "src/sections/antialiasing/section.tsx": {
+        "url": "src/sections/antialiasing/section.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/world",
+            "src/common/sphere",
+            "src/common/camera"
+        ]
+    },
+    "src/sections/defocus-blur/section.tsx": {
+        "url": "src/sections/defocus-blur/section.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/with-material/material",
+            "src/common/defocus-blur-camera"
+        ]
+    },
+    "src/sections/dielectric/section.tsx": {
+        "url": "src/sections/dielectric/section.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/camera",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/sections/diffuse/section.tsx": {
+        "url": "src/sections/diffuse/section.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/world",
+            "src/common/sphere",
+            "src/common/camera",
+            "src/common/math"
+        ]
+    },
+    "src/sections/metal/section.tsx": {
+        "url": "src/sections/metal/section.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/camera",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/sections/multiple-objects/section.tsx": {
+        "url": "src/sections/multiple-objects/section.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/world",
+            "src/common/sphere"
+        ]
+    },
+    "src/sections/normal/section.tsx": {
+        "url": "src/sections/normal/section.html",
+        "dependencies": [
+            "svelte",
+            "three"
+        ]
+    },
+    "src/sections/output-an-image/section.tsx": {
+        "url": "src/sections/output-an-image/section.html",
+        "dependencies": [
+            "svelte"
+        ]
+    },
+    "src/sections/positionable-camera/section.tsx": {
+        "url": "src/sections/positionable-camera/section.html",
+        "dependencies": [
+            "svelte",
+            "three",
+            "src/common/with-material/world",
+            "src/common/with-material/sphere",
+            "src/common/positionable-camera",
+            "src/common/with-material/material"
+        ]
+    },
+    "src/common/positionable-camera": {
+        "dependencies": []
+    },
+    "src/sections/ray/section.tsx": {
+        "url": "src/sections/ray/section.html",
+        "dependencies": [
+            "svelte",
+            "three"
+        ]
+    },
+    "src/sections/sphere/section.tsx": {
+        "url": "src/sections/sphere/section.html",
+        "dependencies": [
+            "svelte",
+            "three"
+        ]
+    },
+    "src/sections/vec3/section.tsx": {
+        "url": "src/sections/vec3/section.html",
+        "dependencies": [
+            "svelte",
+            "three"
+        ]
+    },
+    "src/visualizers/custom-image": {
+        "url": "src/visualizers/custom-image.html",
+        "dependencies": []
+    },
+    "src/visualizers/fix-text": {
+        "url": "src/visualizers/fix-text.html",
+        "dependencies": []
+    },
+    "src/visualizers/illustrator": {
+        "url": "src/visualizers/illustrator.html",
+        "dependencies": []
+    },
+    "src/visualizers/visualizer": {
+        "url": "src/visualizers/visualizer.html",
+        "dependencies": [
+            "src/visualizers/litscript/lib/visualizer",
+            "src/visualizers/illustrator",
+            "src/visualizers/custom-image",
+            "src/visualizers/fix-text"
+        ]
+    },
+    "src/visualizers/litscript/lib/visualizer": {
+        "dependencies": []
+    }
+}

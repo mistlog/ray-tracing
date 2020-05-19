@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../../../color-lerp.tsx"
+  ],
+  "sourcesContent": [
+    "\n<script>\nimport { Vector3 } from 'three';\n\n\nlet color = new Vector3(0.5, 0.7, 1.0);\nlet t = 0;\n$: {\n  color = new Vector3(0.5, 0.7, 1.0).lerp(new Vector3(1, 1, 1), t);\n}\n</script>\n\n\n<div class=\"container\">\n        <input type=\"range\" bind:value={t} min={0} max={1} step={0.01} />\n        <div>{`t: ${t}`}</div>\n        <div>{`blended: rgb(${color.x.toFixed(2)}, ${color.y.toFixed(2)}, ${color.z.toFixed(2)})`}</div>\n        <div>{`start: rgb(${0.5}, ${0.7}, ${1.0})`}</div>\n        <div>{`end: rgb(${1.0}, ${1.0}, ${1.0})`}</div>\n        <div style={`align-self:center;width:150px;height:150px;background-color:rgb(${color.x * 255}, ${color.y * 255}, ${color.z * 255})`}></div>\n    </div>\n\n\n<style>\n@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Sanchez:400,400i|Cousine:400;700);\n\n.container {\n    margin-top: 20px;\n    margin-left: 20px;\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    font-family: 'Sanchez';\n    font-size: 16px;\n}\n\n.container>div {\n    margin-top: 5px;\n}\n</style>"
+  ],
+  "names": [],
+  "mappings": "AAwBA,QAAQ,IAAI,uFAAuF,CAAC,CAAC,AAErG,UAAU,8BAAC,CAAC,AACR,UAAU,CAAE,IAAI,CAChB,WAAW,CAAE,IAAI,CACjB,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,WAAW,CAAE,UAAU,CACvB,WAAW,CAAE,SAAS,CACtB,SAAS,CAAE,IAAI,AACnB,CAAC,AAED,yBAAU,CAAC,GAAG,eAAC,CAAC,AACZ,UAAU,CAAE,GAAG,AACnB,CAAC"
+}

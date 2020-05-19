@@ -1,0 +1,362 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ray Tracing</title>
+    <link rel="icon" type="image/icon" href="../../images/favicon.png" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    
+    
+</head>
+<body>
+    
+    <div class="navbar">
+        <div class="navmenu">
+            
+    <a class="title enabled" href="../../index.html">
+        <img src="../../images/favicon.png" />
+        <span>Ray Tracing</span>
+    </a>
+    <a class="enabled" href="https://github.com/mistlog/ray-tracing">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z"/></svg>
+        <span>Download</span>
+    </a>
+    <a class="enabled" href="https://github.com/mistlog/ray-tracing">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        <span>GitHub</span>
+    </a>
+    <a class="enabled" href="../../license.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm192.81 248H304c8.84 0 16 7.16 16 16s-7.16 16-16 16h-47.19c-16.45 0-31.27-9.14-38.64-23.86-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34a15.986 15.986 0 0 1-14.31 8.84c-.38 0-.75-.02-1.14-.05-6.45-.45-12-4.75-14.03-10.89L144 354.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.77-16.19 54.05-9.7 66 14.16 2.02 4.06 5.96 6.5 10.16 6.5zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
+        <span>License</span>
+    </a>
+    <a class="enabled" href="../common/index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
+        <span>Previous: Common</span>
+    </a>
+    <a  >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
+        <span>Next:</span>
+    </a>
+        </div>
+        
+    <a class="hamburger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </a>
+    </div>
+    
+    <div class="layout">
+        <div class="sidepane collapsible">
+            
+    <div class="tocmenu">
+        <h3>Table of Contents</h3>
+        
+    <ul>
+        
+    <li>
+        
+        <a href="../../index.html"><span data-toggle="tooltip" data-title="Introduction page">Introduction</span></a>
+        
+    </li>
+    <li>
+        <button class="accordion">
+        Sections
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="../sections/output-an-image/section.html">Output an Image</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/vec3/section.html">The vec3 Class</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/ray/section.html">Rays, a Simple Camera, and Background</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/sphere/section.html">Adding a Sphere</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/normal/section.html">Surface Normals</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/multiple-objects/section.html">Multiple Objects</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/antialiasing/section.html">Antialiasing</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/diffuse/section.html">Diffuse Materials</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/metal/section.html">Metal</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/dielectric/section.html">Dielectrics</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/positionable-camera/section.html">Positionable Camera</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/defocus-blur/section.html">Defocus Blur</a>
+        
+    </li>
+    </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Appendix
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="index.html">Illustrations</a>
+        
+    </li>
+    <li>
+        
+        <a href="../common/index.html">Common</a>
+        
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </div>
+            
+        </div>
+        <div class="sideicon collapsible">
+            
+    <a class="hamburger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </a>
+        </div>
+        <div class="scrollingarea closepopups">
+            
+    <div class="contentarea">
+        <pre class="syntaxhighlight"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="8" data-toggle="tooltip" data-title="(fn: any) =&gt; void">onMount</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;svelte&#039;</span><span class="punctuation">;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span id="42" data-toggle="tooltip" data-title="any">PlotData</span><span class="punctuation">,</span> <span id="52" data-toggle="tooltip" data-title="any">Layout</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;plotly.js&#039;</span><span class="punctuation">;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span id="88" data-toggle="tooltip" data-title="typeof Vector3">Vector3</span><span class="punctuation">,</span> <span id="97" data-toggle="tooltip" data-title="typeof Ray">Ray</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;three&#039;</span><span class="punctuation">;</span>
+
+<span class="keyword">enum</span> <span id="117" class="typename" data-toggle="tooltip" data-title="Trace">Trace</span> <span class="punctuation">{</span>
+    <span id="131" data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span><span class="punctuation">,</span>
+    <span id="142" data-toggle="tooltip" data-title="Trace.Ray">Ray</span>
+<span class="punctuation">}</span>
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span id="152" class="member" data-toggle="tooltip" data-title="() =&gt; void">App</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+    <span class="comment">// the id of html element we render to</span>
+    <span class="keyword">const</span> <span id="239" data-toggle="tooltip" data-title="&quot;illustration&quot;">illustrationID</span> <span class="punctuation">=</span> <span class="string">&quot;illustration&quot;</span><span class="punctuation">;</span>
+
+    <span class="keyword">function</span><span class="punctuation">*</span> <span id="272" class="member" data-toggle="tooltip" data-title="() =&gt; Generator&lt;{ pos: { x: number; y: number; z: number; n: number; }; color: string; }, void, unknown&gt;">getColorGenerator</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="comment">//</span>
+        <span class="keyword">const</span> <span id="334" data-toggle="tooltip" data-title="200">width</span> <span class="punctuation">=</span> <span class="number">200</span><span class="punctuation">;</span>
+        <span class="keyword">const</span> <span id="361" data-toggle="tooltip" data-title="100">height</span> <span class="punctuation">=</span> <span class="number">100</span><span class="punctuation">;</span>
+
+        <span class="comment">//</span>
+        <span class="keyword">const</span> <span id="401" data-toggle="tooltip" data-title="Vector3">topLeftCorner</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="scan-sky.html#88"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="punctuation">-</span><span class="number">2</span><span class="punctuation">,</span> <span class="punctuation">-</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <span class="keyword">const</span> <span id="455" data-toggle="tooltip" data-title="Vector3">horizontal</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="scan-sky.html#88"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">4</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <span class="keyword">const</span> <span id="504" data-toggle="tooltip" data-title="Vector3">vertical</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="scan-sky.html#88"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">2</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <span class="keyword">const</span> <span id="551" data-toggle="tooltip" data-title="Vector3">origin</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="scan-sky.html#88"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="keyword">function</span> <span id="582" class="member" data-toggle="tooltip" data-title="(ray: Ray) =&gt; Vector3">getColor</span><span class="punctuation">(</span><span id="610" data-toggle="tooltip" data-title="Ray">ray</span><span class="punctuation">:</span> <a href="scan-sky.html#97"><span data-toggle="tooltip" data-title="Ray">Ray</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+            <span class="keyword">const</span> <span id="639" data-toggle="tooltip" data-title="Vector3">unitDirection</span> <span class="punctuation">=</span> <a href="scan-sky.html#610"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Vector3">direction</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">clone</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">normalize</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="708" data-toggle="tooltip" data-title="number">t</span> <span class="punctuation">=</span> <span class="number">0.5</span> <span class="punctuation">*</span> <span class="punctuation">(</span><a href="scan-sky.html#639"><span data-toggle="tooltip" data-title="Vector3">unitDirection</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">y</span> <span class="punctuation">+</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="759" data-toggle="tooltip" data-title="Vector3">blend</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="scan-sky.html#88"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0.5</span><span class="punctuation">,</span> <span class="number">0.7</span><span class="punctuation">,</span> <span class="number">1.0</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3, alpha: number) =&gt; Vector3">lerp</span><span class="punctuation">(</span><span class="keyword">new</span> <a href="scan-sky.html#88"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span> <a href="scan-sky.html#708"><span data-toggle="tooltip" data-title="number">t</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="keyword">return</span> <a href="scan-sky.html#759"><span data-toggle="tooltip" data-title="Vector3">blend</span></a><span class="punctuation">;</span>
+        <span class="punctuation">}</span>
+
+        <span class="keyword">const</span> <span id="876" data-toggle="tooltip" data-title="10">step</span> <span class="punctuation">=</span> <span class="number">10</span><span class="punctuation">;</span>
+        <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword">let</span> <span id="904" data-toggle="tooltip" data-title="number">x</span> <span class="punctuation">=</span> <span class="number">0</span><span class="punctuation">;</span> <a href="scan-sky.html#904"><span data-toggle="tooltip" data-title="number">x</span></a> <span class="punctuation">&lt;</span> <a href="scan-sky.html#334"><span data-toggle="tooltip" data-title="200">width</span></a><span class="punctuation">;</span> <a href="scan-sky.html#904"><span data-toggle="tooltip" data-title="number">x</span></a> <span class="punctuation">+=</span> <a href="scan-sky.html#876"><span data-toggle="tooltip" data-title="10">step</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+            <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword">let</span> <span id="956" data-toggle="tooltip" data-title="number">y</span> <span class="punctuation">=</span> <span class="number">0</span><span class="punctuation">;</span> <a href="scan-sky.html#956"><span data-toggle="tooltip" data-title="number">y</span></a> <span class="punctuation">&lt;</span> <a href="scan-sky.html#361"><span data-toggle="tooltip" data-title="100">height</span></a><span class="punctuation">;</span> <a href="scan-sky.html#956"><span data-toggle="tooltip" data-title="number">y</span></a> <span class="punctuation">+=</span> <a href="scan-sky.html#876"><span data-toggle="tooltip" data-title="10">step</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+                <span class="comment">//</span>
+                <span class="keyword">const</span> <span id="1029" data-toggle="tooltip" data-title="number">n</span> <span class="punctuation">=</span> <a href="scan-sky.html#956"><span data-toggle="tooltip" data-title="number">y</span></a> <span class="punctuation">*</span> <a href="scan-sky.html#334"><span data-toggle="tooltip" data-title="200">width</span></a> <span class="punctuation">+</span> <a href="scan-sky.html#904"><span data-toggle="tooltip" data-title="number">x</span></a><span class="punctuation">;</span>
+
+                <span class="comment">//</span>
+                <span class="keyword">const</span> <span id="1090" data-toggle="tooltip" data-title="number">u</span> <span class="punctuation">=</span> <a href="scan-sky.html#904"><span data-toggle="tooltip" data-title="number">x</span></a> <span class="punctuation">/</span> <a href="scan-sky.html#334"><span data-toggle="tooltip" data-title="200">width</span></a><span class="punctuation">;</span>
+                <span class="keyword">const</span> <span id="1127" data-toggle="tooltip" data-title="number">v</span> <span class="punctuation">=</span> <a href="scan-sky.html#956"><span data-toggle="tooltip" data-title="number">y</span></a> <span class="punctuation">/</span> <a href="scan-sky.html#361"><span data-toggle="tooltip" data-title="100">height</span></a><span class="punctuation">;</span>
+
+                <span class="keyword">const</span> <span id="1166" data-toggle="tooltip" data-title="Vector3">direction</span> <span class="punctuation">=</span> <a href="scan-sky.html#401"><span data-toggle="tooltip" data-title="Vector3">topLeftCorner</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">clone</span><span class="punctuation">(</span><span class="punctuation">)</span>
+                    <span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3, s: number) =&gt; Vector3">addScaledVector</span><span class="punctuation">(</span><a href="scan-sky.html#455"><span data-toggle="tooltip" data-title="Vector3">horizontal</span></a><span class="punctuation">,</span> <a href="scan-sky.html#1090"><span data-toggle="tooltip" data-title="number">u</span></a><span class="punctuation">)</span>
+                    <span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3, s: number) =&gt; Vector3">addScaledVector</span><span class="punctuation">(</span><a href="scan-sky.html#504"><span data-toggle="tooltip" data-title="Vector3">vertical</span></a><span class="punctuation">,</span> <a href="scan-sky.html#1127"><span data-toggle="tooltip" data-title="number">v</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+                <span class="keyword">const</span> <span id="1326" data-toggle="tooltip" data-title="Ray">ray</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="scan-sky.html#97"><span data-toggle="tooltip" data-title="typeof Ray">Ray</span></a><span class="punctuation">(</span><a href="scan-sky.html#551"><span data-toggle="tooltip" data-title="Vector3">origin</span></a><span class="punctuation">,</span> <a href="scan-sky.html#1166"><span data-toggle="tooltip" data-title="Vector3">direction</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+                <span class="keyword">const</span> <span id="1382" data-toggle="tooltip" data-title="Vector3">color</span> <span class="punctuation">=</span> <a href="scan-sky.html#582"><span class="member" data-toggle="tooltip" data-title="(ray: Ray) =&gt; Vector3">getColor</span></a><span class="punctuation">(</span><a href="scan-sky.html#1326"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+                <span class="comment">//</span>
+                <span class="keyword">yield</span> <span class="punctuation">{</span> <span id="1449" data-toggle="tooltip" data-title="{ x: number; y: number; z: number; n: number; }">pos</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span id="1456" data-toggle="tooltip" data-title="number">x</span><span class="punctuation">,</span> <span id="1459" data-toggle="tooltip" data-title="number">y</span><span class="punctuation">,</span> <span id="1462" data-toggle="tooltip" data-title="number">z</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span> <span id="1468" data-toggle="tooltip" data-title="number">n</span> <span class="punctuation">}</span><span class="punctuation">,</span> <span id="1473" data-toggle="tooltip" data-title="string">color</span><span class="punctuation">:</span> <span class="string">`rgb(${</span><a href="scan-sky.html#1382"><span data-toggle="tooltip" data-title="Vector3">color</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">x</span> <span class="punctuation">*</span> <span class="number">255</span><span class="string">},${</span><a href="scan-sky.html#1382"><span data-toggle="tooltip" data-title="Vector3">color</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">y</span> <span class="punctuation">*</span> <span class="number">255</span><span class="string">},${</span><a href="scan-sky.html#1382"><span data-toggle="tooltip" data-title="Vector3">color</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">z</span> <span class="punctuation">*</span> <span class="number">255</span><span class="string">})`</span> <span class="punctuation">}</span><span class="punctuation">;</span>
+            <span class="punctuation">}</span>
+        <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
+
+    <span class="keyword">let</span> <span id="1580" data-toggle="tooltip" data-title="Generator&lt;{ pos: { x: number; y: number; z: number; n: number; }; color: string; }, void, unknown&gt;">colorGenerator</span> <span class="punctuation">=</span> <a href="scan-sky.html#272"><span class="member" data-toggle="tooltip" data-title="() =&gt; Generator&lt;{ pos: { x: number; y: number; z: number; n: number; }; color: string; }, void, unknown&gt;">getColorGenerator</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="1626" data-toggle="tooltip" data-title="any">frameID</span> <span class="punctuation">=</span> <span class="keyword">null</span><span class="punctuation">;</span>
+    <span class="keyword">function</span> <span id="1642" class="member" data-toggle="tooltip" data-title="() =&gt; void">resetPlot</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="member" data-toggle="tooltip" data-title="(handle: number) =&gt; void">cancelAnimationFrame</span><span class="punctuation">(</span><a href="scan-sky.html#1626"><span data-toggle="tooltip" data-title="any">frameID</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="scan-sky.html#1580"><span data-toggle="tooltip" data-title="Generator&lt;{ pos: { x: number; y: number; z: number; n: number; }; color: string; }, void, unknown&gt;">colorGenerator</span></a> <span class="punctuation">=</span> <a href="scan-sky.html#272"><span class="member" data-toggle="tooltip" data-title="() =&gt; Generator&lt;{ pos: { x: number; y: number; z: number; n: number; }; color: string; }, void, unknown&gt;">getColorGenerator</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <span class="keyword">const</span> <span id="1768" data-toggle="tooltip" data-title="HTMLDivElement &amp; { data: Partial&lt;PlotData&gt;[]; }">div</span> <span class="punctuation">=</span> <span data-toggle="tooltip" data-title="Document">document</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(elementId: string) =&gt; HTMLElement">getElementById</span><span class="punctuation">(</span><a href="scan-sky.html#239"><span data-toggle="tooltip" data-title="&quot;illustration&quot;">illustrationID</span></a><span class="punctuation">)</span> <span class="keyword">as</span> <span class="typename" data-toggle="tooltip" data-title="HTMLDivElement">HTMLDivElement</span> <span class="punctuation">&amp;</span> <span class="punctuation">{</span> <span id="1836" data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="T[]">Array</span><span class="punctuation">&lt;</span><span class="typename" data-toggle="tooltip" data-title="Partial&lt;T&gt;">Partial</span><span class="punctuation">&lt;</span><a href="scan-sky.html#42"><span data-toggle="tooltip" data-title="PlotData">PlotData</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span> <span class="punctuation">}</span><span class="punctuation">;</span>
+        <span class="keyword">const</span> <span id="1884" data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span> <span class="punctuation">=</span> <a href="scan-sky.html#1768"><span data-toggle="tooltip" data-title="HTMLDivElement &amp; { data: Partial&lt;PlotData&gt;[]; }">div</span></a><span class="punctuation">.</span><a href="scan-sky.html#1836"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">;</span>
+
+        <a href="scan-sky.html#1884"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">x</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+        <a href="scan-sky.html#1884"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">y</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+        <a href="scan-sky.html#1884"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | ... 4 more ... | Datum[][][]">z</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+        <a href="scan-sky.html#1884"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Partial&lt;PlotMarker&gt;">marker</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="string | number | Svelte.SvelteText[] | Svelte.SvelteText[][] | Color[]">color</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+
+        <span class="comment">//</span>
+        <a href="scan-sky.html#1884"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#142"><span data-toggle="tooltip" data-title="Trace.Ray">Ray</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">x</span><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="keyword">null</span><span class="punctuation">;</span>
+        <a href="scan-sky.html#1884"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#142"><span data-toggle="tooltip" data-title="Trace.Ray">Ray</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">y</span><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="keyword">null</span><span class="punctuation">;</span>
+        <a href="scan-sky.html#1884"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#142"><span data-toggle="tooltip" data-title="Trace.Ray">Ray</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | ... 4 more ... | Datum[][][]">z</span><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="keyword">null</span><span class="punctuation">;</span>
+        <span data-toggle="tooltip" data-title="typeof globalThis">globalThis</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="typeof import(&quot;/home/runner/work/ray-tracing/ray-tracing/node_modules/@types/plotly.js/index&quot;)">Plotly</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(root: Root) =&gt; Promise&lt;PlotlyHTMLElement&gt;">redraw</span><span class="punctuation">(</span><a href="scan-sky.html#239"><span data-toggle="tooltip" data-title="&quot;illustration&quot;">illustrationID</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="2228" class="member" data-toggle="tooltip" data-title="() =&gt; void">updatePlot</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="keyword">const</span> <span id="2271" data-toggle="tooltip" data-title="void | { pos: { x: number; y: number; z: number; n: number; }; color: string; }">next</span> <span class="punctuation">=</span> <a href="scan-sky.html#1580"><span data-toggle="tooltip" data-title="Generator&lt;{ pos: { x: number; y: number; z: number; n: number; }; color: string; }, void, unknown&gt;">colorGenerator</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...args: [] | [unknown]) =&gt; IteratorResult&lt;{ pos: { x: number; y: number; z: number; n: number; }; color: string; }, void&gt;">next</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="void | { pos: { x: number; y: number; z: number; n: number; }; color: string; }">value</span><span class="punctuation">;</span>
+        <span class="keyword">if</span> <span class="punctuation">(</span><a href="scan-sky.html#2271"><span data-toggle="tooltip" data-title="void | { pos: { x: number; y: number; z: number; n: number; }; color: string; }">next</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+            <span class="comment">// retrieve data from illustration</span>
+            <span class="keyword">const</span> <span id="2392" data-toggle="tooltip" data-title="HTMLDivElement &amp; { data: Partial&lt;PlotData&gt;[]; }">div</span> <span class="punctuation">=</span> <span data-toggle="tooltip" data-title="Document">document</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(elementId: string) =&gt; HTMLElement">getElementById</span><span class="punctuation">(</span><a href="scan-sky.html#239"><span data-toggle="tooltip" data-title="&quot;illustration&quot;">illustrationID</span></a><span class="punctuation">)</span> <span class="keyword">as</span> <span class="typename" data-toggle="tooltip" data-title="HTMLDivElement">HTMLDivElement</span> <span class="punctuation">&amp;</span> <span class="punctuation">{</span> <span id="2460" data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="T[]">Array</span><span class="punctuation">&lt;</span><span class="typename" data-toggle="tooltip" data-title="Partial&lt;T&gt;">Partial</span><span class="punctuation">&lt;</span><a href="scan-sky.html#42"><span data-toggle="tooltip" data-title="PlotData">PlotData</span></a><span class="punctuation">&gt;</span><span class="punctuation">&gt;</span> <span class="punctuation">}</span><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="2512" data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span> <span class="punctuation">=</span> <a href="scan-sky.html#2392"><span data-toggle="tooltip" data-title="HTMLDivElement &amp; { data: Partial&lt;PlotData&gt;[]; }">div</span></a><span class="punctuation">.</span><a href="scan-sky.html#2460"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">;</span>
+
+            <span class="comment">// update plot ref: https://community.plot.ly/t/what-is-the-most-performant-way-to-update-a-graph-with-new-data/639</span>
+            <span class="keyword">const</span> <span class="punctuation">{</span> <span id="2678" data-toggle="tooltip" data-title="{ x: number; y: number; z: number; n: number; }">pos</span><span class="punctuation">,</span> <span id="2683" data-toggle="tooltip" data-title="string">color</span> <span class="punctuation">}</span> <span class="punctuation">=</span> <a href="scan-sky.html#2271"><span data-toggle="tooltip" data-title="{ pos: { x: number; y: number; z: number; n: number; }; color: string; }">next</span></a><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span class="punctuation">{</span> <span id="2719" data-toggle="tooltip" data-title="number">x</span><span class="punctuation">,</span> <span id="2722" data-toggle="tooltip" data-title="number">y</span><span class="punctuation">,</span> <span id="2725" data-toggle="tooltip" data-title="number">z</span><span class="punctuation">,</span> <span id="2728" data-toggle="tooltip" data-title="number">n</span> <span class="punctuation">}</span> <span class="punctuation">=</span> <a href="scan-sky.html#2678"><span data-toggle="tooltip" data-title="{ x: number; y: number; z: number; n: number; }">pos</span></a><span class="punctuation">;</span>
+            <a href="scan-sky.html#2512"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">x</span><span class="punctuation">[</span><a href="scan-sky.html#2728"><span data-toggle="tooltip" data-title="number">n</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#2719"><span data-toggle="tooltip" data-title="number">x</span></a><span class="punctuation">;</span>
+            <a href="scan-sky.html#2512"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">y</span><span class="punctuation">[</span><a href="scan-sky.html#2728"><span data-toggle="tooltip" data-title="number">n</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#2722"><span data-toggle="tooltip" data-title="number">y</span></a><span class="punctuation">;</span>
+            <a href="scan-sky.html#2512"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | ... 4 more ... | Datum[][][]">z</span><span class="punctuation">[</span><a href="scan-sky.html#2728"><span data-toggle="tooltip" data-title="number">n</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#2725"><span data-toggle="tooltip" data-title="number">z</span></a><span class="punctuation">;</span>
+            <a href="scan-sky.html#2512"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Partial&lt;PlotMarker&gt;">marker</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="string | number | Svelte.SvelteText[] | Svelte.SvelteText[][] | Color[]">color</span><span class="punctuation">[</span><a href="scan-sky.html#2728"><span data-toggle="tooltip" data-title="number">n</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#2683"><span data-toggle="tooltip" data-title="string">color</span></a><span class="punctuation">;</span>
+
+            <span class="comment">//</span>
+            <a href="scan-sky.html#2512"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#142"><span data-toggle="tooltip" data-title="Trace.Ray">Ray</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">x</span><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#2719"><span data-toggle="tooltip" data-title="number">x</span></a><span class="punctuation">;</span>
+            <a href="scan-sky.html#2512"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#142"><span data-toggle="tooltip" data-title="Trace.Ray">Ray</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array">y</span><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#2722"><span data-toggle="tooltip" data-title="number">y</span></a><span class="punctuation">;</span>
+            <a href="scan-sky.html#2512"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#142"><span data-toggle="tooltip" data-title="Trace.Ray">Ray</span></a><span class="punctuation">]</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray | Datum[] | Datum[][] | Int8Array | Uint8Array | Int16Array | Uint16Array | ... 4 more ... | Datum[][][]">z</span><span class="punctuation">[</span><span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#2725"><span data-toggle="tooltip" data-title="number">z</span></a><span class="punctuation">;</span>
+            <span data-toggle="tooltip" data-title="typeof globalThis">globalThis</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="typeof import(&quot;/home/runner/work/ray-tracing/ray-tracing/node_modules/@types/plotly.js/index&quot;)">Plotly</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(root: Root) =&gt; Promise&lt;PlotlyHTMLElement&gt;">redraw</span><span class="punctuation">(</span><a href="scan-sky.html#239"><span data-toggle="tooltip" data-title="&quot;illustration&quot;">illustrationID</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+            <a href="scan-sky.html#1626"><span data-toggle="tooltip" data-title="any">frameID</span></a> <span class="punctuation">=</span> <span class="member" data-toggle="tooltip" data-title="(callback: FrameRequestCallback) =&gt; number">requestAnimationFrame</span><span class="punctuation">(</span><a href="scan-sky.html#2228"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">updatePlot</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+        <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
+
+    <a href="scan-sky.html#8"><span data-toggle="tooltip" data-title="(fn: any) =&gt; void">onMount</span></a><span class="punctuation">(</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+        <span class="comment">//@ts-ignore</span>
+        <span class="punctuation">&lt;</span><a href="scan-sky.html#3486"><span class="member" data-toggle="tooltip" data-title="(position: number, illustrationID: string) =&gt; void">HandleCreatePlot</span></a> <span class="punctuation">/</span><span class="punctuation">&gt;</span><span class="punctuation">;</span>
+    <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="punctuation">&lt;</span><span data-toggle="tooltip" data-title="any">div</span> <span id="3261" data-toggle="tooltip" data-title="string">class</span><span class="punctuation">=</span><span class="string">&quot;container&quot;</span><span class="punctuation">&gt;</span>
+        <span class="punctuation">&lt;</span><span data-toggle="tooltip" data-title="any">button</span> <span id="3296" data-toggle="tooltip" data-title="() =&gt; void">onClick</span><span class="punctuation">=</span><span class="punctuation">{</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+            <a href="scan-sky.html#1642"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">resetPlot</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="member" data-toggle="tooltip" data-title="(callback: FrameRequestCallback) =&gt; number">requestAnimationFrame</span><span class="punctuation">(</span><a href="scan-sky.html#2228"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">updatePlot</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+        <span class="punctuation">}</span><span class="punctuation">}</span><span class="punctuation">&gt;</span>
+            Start
+        <span class="punctuation">&lt;</span><span class="punctuation">/</span><span data-toggle="tooltip" data-title="any">button</span><span class="punctuation">&gt;</span>
+        <span class="punctuation">&lt;</span><span data-toggle="tooltip" data-title="any">div</span> <span id="3446" data-toggle="tooltip" data-title="string">id</span><span class="punctuation">=</span><span class="punctuation">{</span><a href="scan-sky.html#239"><span data-toggle="tooltip" data-title="&quot;illustration&quot;">illustrationID</span></a><span class="punctuation">}</span><span class="punctuation">&gt;</span><span class="punctuation">&lt;</span><span class="punctuation">/</span><span data-toggle="tooltip" data-title="any">div</span><span class="punctuation">&gt;</span>
+    <span class="punctuation">&lt;</span><span class="punctuation">/</span><span data-toggle="tooltip" data-title="any">div</span><span class="punctuation">&gt;</span>
+<span class="punctuation">}</span>
+
+<span class="keyword">function</span> <span id="3486" class="member" data-toggle="tooltip" data-title="(position: number, illustrationID: string) =&gt; void">HandleCreatePlot</span><span class="punctuation">(</span><span id="3514" data-toggle="tooltip" data-title="number">position</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="3531" data-toggle="tooltip" data-title="string">illustrationID</span><span class="punctuation">:</span> <span class="keyword">string</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+    <span class="comment">//</span>
+    <span class="keyword">const</span> <span id="3574" data-toggle="tooltip" data-title="any[]">data</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3595" data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;">pixelTrace</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="Partial&lt;T&gt;">Partial</span><span class="punctuation">&lt;</span><a href="scan-sky.html#42"><span data-toggle="tooltip" data-title="PlotData">PlotData</span></a><span class="punctuation">&gt;</span> <span class="punctuation">=</span> <span class="punctuation">{</span>
+        <span id="3629" data-toggle="tooltip" data-title="&quot;scatter3d&quot;">type</span><span class="punctuation">:</span> <span class="string">&#039;scatter3d&#039;</span><span class="punctuation">,</span>
+        <span id="3656" data-toggle="tooltip" data-title="&quot;markers&quot;">mode</span><span class="punctuation">:</span> <span class="string">&#039;markers&#039;</span><span class="punctuation">,</span>
+        <span id="3681" data-toggle="tooltip" data-title="string">name</span><span class="punctuation">:</span> <span class="string">&quot;pixels&quot;</span><span class="punctuation">,</span>
+        <span id="3705" data-toggle="tooltip" data-title="undefined[]">x</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>
+        <span id="3720" data-toggle="tooltip" data-title="undefined[]">y</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>
+        <span id="3735" data-toggle="tooltip" data-title="undefined[]">z</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>
+        <span id="3750" data-toggle="tooltip" data-title="{ size: number; color: undefined[]; colorscale: string; }">marker</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+            <span id="3768" data-toggle="tooltip" data-title="number">size</span><span class="punctuation">:</span> <span class="number">5</span><span class="punctuation">,</span>
+            <span id="3789" data-toggle="tooltip" data-title="undefined[]">color</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">,</span>
+            <span id="3812" data-toggle="tooltip" data-title="string">colorscale</span><span class="punctuation">:</span> <span class="string">&quot;Greens&quot;</span>
+        <span class="punctuation">}</span><span class="punctuation">,</span>
+
+    <span class="punctuation">}</span>
+    <a href="scan-sky.html#3574"><span data-toggle="tooltip" data-title="any[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#131"><span data-toggle="tooltip" data-title="Trace.Pixel">Pixel</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#3595"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;">pixelTrace</span></a><span class="punctuation">;</span>
+
+    <span class="comment">//</span>
+    <span class="keyword">const</span> <span id="3917" data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;">rayTrace</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="Partial&lt;T&gt;">Partial</span><span class="punctuation">&lt;</span><a href="scan-sky.html#42"><span data-toggle="tooltip" data-title="PlotData">PlotData</span></a><span class="punctuation">&gt;</span> <span class="punctuation">=</span> <span class="punctuation">{</span>
+        <span id="3949" data-toggle="tooltip" data-title="&quot;scatter3d&quot;">type</span><span class="punctuation">:</span> <span class="string">&#039;scatter3d&#039;</span><span class="punctuation">,</span>
+        <span id="3976" data-toggle="tooltip" data-title="&quot;lines+markers&quot;">mode</span><span class="punctuation">:</span> <span class="string">&#039;lines+markers&#039;</span><span class="punctuation">,</span>
+        <span id="4007" data-toggle="tooltip" data-title="string">name</span><span class="punctuation">:</span> <span class="string">&#039;ray&#039;</span><span class="punctuation">,</span>
+        <span id="4028" data-toggle="tooltip" data-title="number[]">x</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">100</span><span class="punctuation">]</span><span class="punctuation">,</span>
+        <span id="4046" data-toggle="tooltip" data-title="number[]">y</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">50</span><span class="punctuation">]</span><span class="punctuation">,</span>
+        <span id="4063" data-toggle="tooltip" data-title="number[]">z</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="number">0</span><span class="punctuation">]</span><span class="punctuation">,</span>
+        <span id="4079" data-toggle="tooltip" data-title="{ width: number; color: string[]; }">line</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+            <span id="4095" data-toggle="tooltip" data-title="number">width</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span>
+            <span id="4117" data-toggle="tooltip" data-title="string[]">color</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;#f00&quot;</span><span class="punctuation">,</span> <span class="string">&quot;#00f&quot;</span><span class="punctuation">]</span>
+        <span class="punctuation">}</span><span class="punctuation">,</span>
+        <span id="4164" data-toggle="tooltip" data-title="{ size: number; color: string[]; colorscale: string; }">marker</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+            <span id="4182" data-toggle="tooltip" data-title="number">size</span><span class="punctuation">:</span> <span class="number">2</span><span class="punctuation">,</span>
+            <span id="4203" data-toggle="tooltip" data-title="string[]">color</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;#f00&quot;</span><span class="punctuation">,</span> <span class="string">&quot;#00f&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span>
+            <span id="4240" data-toggle="tooltip" data-title="string">colorscale</span><span class="punctuation">:</span> <span class="string">&quot;Greens&quot;</span><span class="punctuation">,</span>
+        <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
+    <a href="scan-sky.html#3574"><span data-toggle="tooltip" data-title="any[]">data</span></a><span class="punctuation">[</span><a href="scan-sky.html#117"><span class="typename" data-toggle="tooltip" data-title="typeof Trace">Trace</span></a><span class="punctuation">.</span><a href="scan-sky.html#142"><span data-toggle="tooltip" data-title="Trace.Ray">Ray</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="scan-sky.html#3917"><span data-toggle="tooltip" data-title="Partial&lt;PlotData&gt;">rayTrace</span></a><span class="punctuation">;</span>
+
+    <span class="comment">// config the camera</span>
+    <span class="keyword">const</span> <span id="4358" data-toggle="tooltip" data-title="Partial&lt;Layout&gt;">layout</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="Partial&lt;T&gt;">Partial</span><span class="punctuation">&lt;</span><a href="scan-sky.html#52"><span data-toggle="tooltip" data-title="Layout">Layout</span></a><span class="punctuation">&gt;</span> <span class="punctuation">=</span> <span class="punctuation">{</span>
+        <span id="4386" data-toggle="tooltip" data-title="{ camera: { up: { x: number; y: number; z: number; }; center: { x: number; y: number; z: number; }; eye: { x: number; y: number; z: number; }; }; }">scene</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+            <span id="4403" data-toggle="tooltip" data-title="{ up: { x: number; y: number; z: number; }; center: { x: number; y: number; z: number; }; eye: { x: number; y: number; z: number; }; }">camera</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+                <span id="4425" data-toggle="tooltip" data-title="{ x: number; y: number; z: number; }">up</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span id="4447" data-toggle="tooltip" data-title="number">x</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span id="4453" data-toggle="tooltip" data-title="number">y</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span id="4459" data-toggle="tooltip" data-title="number">z</span><span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">}</span><span class="punctuation">,</span>
+                <span id="4467" data-toggle="tooltip" data-title="{ x: number; y: number; z: number; }">center</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span id="4493" data-toggle="tooltip" data-title="number">x</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span id="4499" data-toggle="tooltip" data-title="number">y</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span> <span id="4505" data-toggle="tooltip" data-title="number">z</span><span class="punctuation">:</span> <span class="number">0</span> <span class="punctuation">}</span><span class="punctuation">,</span>
+                <span id="4513" data-toggle="tooltip" data-title="{ x: number; y: number; z: number; }">eye</span><span class="punctuation">:</span> <span class="punctuation">{</span> <span id="4536" data-toggle="tooltip" data-title="number">x</span><span class="punctuation">:</span> <span class="number">0.012768344414103178</span><span class="punctuation">,</span> <span id="4561" data-toggle="tooltip" data-title="number">y</span><span class="punctuation">:</span> <span class="punctuation">-</span><span class="number">1.5118330938936242</span><span class="punctuation">,</span> <span id="4585" data-toggle="tooltip" data-title="number">z</span><span class="punctuation">:</span> <span class="punctuation">-</span><span class="number">3.17011334634797</span> <span class="punctuation">}</span>
+            <span class="punctuation">}</span>
+        <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
+
+    <span class="comment">// example ref: https://plot.ly/javascript/3d-line-plots/</span>
+    <span data-toggle="tooltip" data-title="typeof globalThis">globalThis</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="typeof import(&quot;/home/runner/work/ray-tracing/ray-tracing/node_modules/@types/plotly.js/index&quot;)">Plotly</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(root: Root, data: Partial&lt;PlotData&gt;[], layout?: Partial&lt;Layout&gt;, config?: Partial&lt;Config&gt;) =&gt; Promise&lt;PlotlyHTMLElement&gt;">newPlot</span><span class="punctuation">(</span><a href="scan-sky.html#3531"><span data-toggle="tooltip" data-title="string">illustrationID</span></a><span class="punctuation">,</span> <a href="scan-sky.html#3574"><span data-toggle="tooltip" data-title="any[]">data</span></a><span class="punctuation">,</span> <a href="scan-sky.html#4358"><span data-toggle="tooltip" data-title="Partial&lt;Layout&gt;">layout</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+
+        
+    </div>
+            <div class="stickypane">
+                
+    <div class="pagemenu">
+        <h3>On This Page</h3>
+            <ul class="pagetree">
+                
+            </ul>
+    </div>
+                
+    <div class="footer">
+        Copyright © 2020 mistlog
+        <div class="ad">
+            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
+        </div>
+    </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../../js/main.js"></script>
+    
+</body>
+</html>

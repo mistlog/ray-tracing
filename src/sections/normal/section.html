@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ray Tracing - Surface Normals</title>
+    <link rel="icon" type="image/icon" href="../../../images/favicon.png" />
+    <link rel="stylesheet" href="../../../css/main.css" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+</head>
+<body>
+    
+    <div class="navbar">
+        <div class="navmenu">
+            
+    <a class="title enabled" href="../../../index.html">
+        <img src="../../../images/favicon.png" />
+        <span>Ray Tracing</span>
+    </a>
+    <a class="enabled" href="https://github.com/mistlog/ray-tracing">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z"/></svg>
+        <span>Download</span>
+    </a>
+    <a class="enabled" href="https://github.com/mistlog/ray-tracing">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        <span>GitHub</span>
+    </a>
+    <a class="enabled" href="../../../license.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm192.81 248H304c8.84 0 16 7.16 16 16s-7.16 16-16 16h-47.19c-16.45 0-31.27-9.14-38.64-23.86-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34a15.986 15.986 0 0 1-14.31 8.84c-.38 0-.75-.02-1.14-.05-6.45-.45-12-4.75-14.03-10.89L144 354.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.77-16.19 54.05-9.7 66 14.16 2.02 4.06 5.96 6.5 10.16 6.5zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
+        <span>License</span>
+    </a>
+    <a class="enabled" href="../sphere/section.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
+        <span>Previous: Adding a Sphere</span>
+    </a>
+    <a class="enabled" href="../multiple-objects/section.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
+        <span>Next: Multiple Objects</span>
+    </a>
+        </div>
+        
+    <a class="hamburger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </a>
+    </div>
+    
+    <div class="layout">
+        <div class="sidepane collapsible">
+            
+    <div class="tocmenu">
+        <h3>Table of Contents</h3>
+        
+    <ul>
+        
+    <li>
+        
+        <a href="../../../index.html"><span data-toggle="tooltip" data-title="Introduction page">Introduction</span></a>
+        
+    </li>
+    <li>
+        <button class="accordion">
+        Sections
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="../output-an-image/section.html">Output an Image</a>
+        
+    </li>
+    <li>
+        
+        <a href="../vec3/section.html">The vec3 Class</a>
+        
+    </li>
+    <li>
+        
+        <a href="../ray/section.html">Rays, a Simple Camera, and Background</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sphere/section.html">Adding a Sphere</a>
+        
+    </li>
+    <li>
+        
+        <a href="section.html" class="highlight">Surface Normals</a>
+        
+    </li>
+    <li>
+        
+        <a href="../multiple-objects/section.html">Multiple Objects</a>
+        
+    </li>
+    <li>
+        
+        <a href="../antialiasing/section.html">Antialiasing</a>
+        
+    </li>
+    <li>
+        
+        <a href="../diffuse/section.html">Diffuse Materials</a>
+        
+    </li>
+    <li>
+        
+        <a href="../metal/section.html">Metal</a>
+        
+    </li>
+    <li>
+        
+        <a href="../dielectric/section.html">Dielectrics</a>
+        
+    </li>
+    <li>
+        
+        <a href="../positionable-camera/section.html">Positionable Camera</a>
+        
+    </li>
+    <li>
+        
+        <a href="../defocus-blur/section.html">Defocus Blur</a>
+        
+    </li>
+    </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Appendix
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="../../illustrations/index.html">Illustrations</a>
+        
+    </li>
+    <li>
+        
+        <a href="../../common/index.html">Common</a>
+        
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </div>
+            
+        </div>
+        <div class="sideicon collapsible">
+            
+    <a class="hamburger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </a>
+        </div>
+        <div class="scrollingarea closepopups">
+            
+    <div class="contentarea">
+        
+<h1 id="surface-normals">Surface Normals</h1>
+<blockquote>
+<p>First, let’s get ourselves a surface normal so we can shade. This is a vector that is perpendicular to the surface, and by convention, points out.</p>
+</blockquote>
+<p>This part is corresponding to <a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html#surfacenormalsandmultipleobjects">Ray Tracing In One Weekend: Surface Normals and Multiple Objects</a>.</p>
+<h3 id="hit-sphere">Hit sphere</h3>
+<details>
+<summary>todo</summary>
+<p>bug of three.js: result of Ray.intersectSphere is wrong</p>
+</details>
+<pre class="syntaxhighlight"><code><span class="keyword">function</span> <span id="0" class="member" data-toggle="tooltip" data-title="(center: Vector3, radius: number, ray: Ray) =&gt; number">HitSphere</span><span class="punctuation">(</span><span id="658" data-toggle="tooltip" data-title="Vector3">center</span><span class="punctuation">:</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="Vector3">Vector3</span></a><span class="punctuation">,</span> <span id="674" data-toggle="tooltip" data-title="number">radius</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="690" data-toggle="tooltip" data-title="Ray">ray</span><span class="punctuation">:</span> <a href="section.html#4701"><span data-toggle="tooltip" data-title="Ray">Ray</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+</code></pre>
+<div class="visualizer" id="visualizer1"></div>
+<p>For a sphere, the normal is in the direction of the hitpoint minus the center.</p>
+<p>oc: origin to center</p>
+<pre class="syntaxhighlight"><code>    <span class="keyword">const</span> <span id="1010" data-toggle="tooltip" data-title="Vector3">oc</span> <span class="punctuation">=</span> <a href="section.html#690"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Vector3">origin</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">clone</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(a: Vector3) =&gt; Vector3">sub</span><span class="punctuation">(</span><a href="section.html#658"><span data-toggle="tooltip" data-title="Vector3">center</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+</code></pre>
+<p>To get points of intersection, we need to solve the <a href="https://raytracing.github.io/books/RayTracingInOneWeekend.html#addingasphere">quadratic equation</a>:</p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mo fence="true">{</mo><mtable><mtr><mtd><mrow><mi>A</mi></mrow></mtd><mtd><mrow><mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi></mtext></mrow></mtd></mtr><mtr><mtd><mrow><mi>B</mi></mrow></mtd><mtd><mrow><mtext><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mtext></mrow></mtd></mtr><mtr><mtd><mrow><mi>C</mi></mrow></mtd><mtd><mrow><mtext><mi mathvariant="normal">c</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi></mtext></mrow></mtd></mtr><mtr><mtd><mrow><mi>t</mi></mrow></mtd><mtd><mrow><mtext><mi mathvariant="normal">d</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">a</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">e</mi><mtext> </mtext><mi mathvariant="normal">f</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">m</mi><mtext> </mtext><mi mathvariant="normal">o</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">g</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mtext> </mtext><mi mathvariant="normal">t</mi><mi mathvariant="normal">o</mi><mtext> </mtext><mi mathvariant="normal">i</mi><mi mathvariant="normal">n</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">r</mi><mi mathvariant="normal">s</mi><mi mathvariant="normal">e</mi><mi mathvariant="normal">c</mi><mi mathvariant="normal">t</mi><mi mathvariant="normal">i</mi><mi mathvariant="normal">o</mi><mi mathvariant="normal">n</mi></mtext></mrow></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">\begin{cases}A &amp; \text{origin}\\B &amp; \text{direction} \\C &amp; \text{center} \\ t &amp; \text{distance from origin to intersection}\end{cases}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:3.1300000000000003em;"></span><span class="strut bottom" style="height:5.76em;vertical-align:-2.63em;"></span><span class="base displaystyle textstyle uncramped"><span class="minner displaystyle textstyle uncramped"><span class="style-wrap reset-textstyle textstyle uncramped"><span class="delimsizing mult"><span class="vlist"><span style="top:1.5500099999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎩</span></span></span><span style="top:1.5500099999999999em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:1.2500099999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:0.9500099999999998em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-0.000010000000000287557em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎨</span></span></span><span style="top:-1.1500100000000002em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-1.4500100000000002em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-1.7500100000000003em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎪</span></span></span><span style="top:-2.0500200000000004em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="delimsizinginner delim-size4"><span>⎧</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span><span class="mord"><span class="mtable"><span class="col-align-l"><span class="vlist"><span style="top:-2.1220000000000003em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord mathit">A</span></span></span><span style="top:-0.6820000000000005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.05017em;">B</span></span></span><span style="top:0.7579999999999995em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord mathit" style="margin-right:0.07153em;">C</span></span></span><span style="top:2.198em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="mord mathit">t</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="arraycolsep" style="width:1em;"></span><span class="col-align-l"><span class="vlist"><span style="top:-2.1220000000000003em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="text mord displaystyle textstyle uncramped"><span class="mord mathrm">o</span><span class="mord mathrm">r</span><span class="mord mathrm">i</span><span class="mord mathrm" style="margin-right:0.01389em;">g</span><span class="mord mathrm">i</span><span class="mord mathrm">n</span></span></span></span><span style="top:-0.6820000000000005em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="text mord displaystyle textstyle uncramped"><span class="mord mathrm">d</span><span class="mord mathrm">i</span><span class="mord mathrm">r</span><span class="mord mathrm">e</span><span class="mord mathrm">c</span><span class="mord mathrm">t</span><span class="mord mathrm">i</span><span class="mord mathrm">o</span><span class="mord mathrm">n</span></span></span></span><span style="top:0.7579999999999995em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="text mord displaystyle textstyle uncramped"><span class="mord mathrm">c</span><span class="mord mathrm">e</span><span class="mord mathrm">n</span><span class="mord mathrm">t</span><span class="mord mathrm">e</span><span class="mord mathrm">r</span></span></span></span><span style="top:2.198em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="mord displaystyle textstyle uncramped"><span class="text mord displaystyle textstyle uncramped"><span class="mord mathrm">d</span><span class="mord mathrm">i</span><span class="mord mathrm">s</span><span class="mord mathrm">t</span><span class="mord mathrm">a</span><span class="mord mathrm">n</span><span class="mord mathrm">c</span><span class="mord mathrm">e</span><span class="mord mspace"> </span><span class="mord mathrm" style="margin-right:0.07778em;">f</span><span class="mord mathrm">r</span><span class="mord mathrm">o</span><span class="mord mathrm">m</span><span class="mord mspace"> </span><span class="mord mathrm">o</span><span class="mord mathrm">r</span><span class="mord mathrm">i</span><span class="mord mathrm" style="margin-right:0.01389em;">g</span><span class="mord mathrm">i</span><span class="mord mathrm">n</span><span class="mord mspace"> </span><span class="mord mathrm">t</span><span class="mord mathrm">o</span><span class="mord mspace"> </span><span class="mord mathrm">i</span><span class="mord mathrm">n</span><span class="mord mathrm">t</span><span class="mord mathrm">e</span><span class="mord mathrm">r</span><span class="mord mathrm">s</span><span class="mord mathrm">e</span><span class="mord mathrm">c</span><span class="mord mathrm">t</span><span class="mord mathrm">i</span><span class="mord mathrm">o</span><span class="mord mathrm">n</span></span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span></span></span><span class="sizing reset-size5 size5 reset-textstyle textstyle uncramped nulldelimiter"></span></span></span></span></span></span></p>
+<p><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>t</mi><mn>2</mn></msup><mo>⋅</mo><mi>d</mi><mi>o</mi><mi>t</mi><mo>(</mo><mi>B</mi><mo separator="true">,</mo><mi>B</mi><mo>)</mo><mo>+</mo><mn>2</mn><mi>t</mi><mo>⋅</mo><mi>d</mi><mi>o</mi><mi>t</mi><mo>(</mo><mi>B</mi><mo separator="true">,</mo><mi>A</mi><mo>−</mo><mi>C</mi><mo>)</mo><mo>+</mo><mi>d</mi><mi>o</mi><mi>t</mi><mo>(</mo><mi>A</mi><mo>−</mo><mi>C</mi><mo separator="true">,</mo><mi>A</mi><mo>−</mo><mi>C</mi><mo>)</mo><mo>−</mo><msup><mi>R</mi><mn>2</mn></msup><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t^2 \cdot dot(B,B) + 2t \cdot dot(B,A-C) + dot(A-C,A-C) - R^2 = 0
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.8641079999999999em;"></span><span class="strut bottom" style="height:1.1141079999999999em;vertical-align:-0.25em;"></span><span class="base displaystyle textstyle uncramped"><span class="mord"><span class="mord mathit">t</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mbin">⋅</span><span class="mord mathit">d</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathrm">2</span><span class="mord mathit">t</span><span class="mbin">⋅</span><span class="mord mathit">d</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit" style="margin-right:0.05017em;">B</span><span class="mpunct">,</span><span class="mord mathit">A</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit">d</span><span class="mord mathit">o</span><span class="mord mathit">t</span><span class="mopen">(</span><span class="mord mathit">A</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mpunct">,</span><span class="mord mathit">A</span><span class="mbin">−</span><span class="mord mathit" style="margin-right:0.07153em;">C</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord"><span class="mord mathit" style="margin-right:0.00773em;">R</span><span class="vlist"><span style="top:-0.413em;margin-right:0.05em;"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span><span class="reset-textstyle scriptstyle uncramped"><span class="mord mathrm">2</span></span></span><span class="baseline-fix"><span class="fontsize-ensurer reset-size5 size5"><span style="font-size:0em;">​</span></span>​</span></span></span><span class="mrel">=</span><span class="mord mathrm">0</span></span></span></span></span></p>
+<pre class="syntaxhighlight"><code>    <span class="keyword">const</span> <span id="1473" data-toggle="tooltip" data-title="number">a</span> <span class="punctuation">=</span> <a href="section.html#690"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Vector3">direction</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3) =&gt; number">dot</span><span class="punctuation">(</span><a href="section.html#690"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Vector3">direction</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="1521" data-toggle="tooltip" data-title="number">b</span> <span class="punctuation">=</span> <span class="number">2.0</span> <span class="punctuation">*</span> <a href="section.html#1010"><span data-toggle="tooltip" data-title="Vector3">oc</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3) =&gt; number">dot</span><span class="punctuation">(</span><a href="section.html#690"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Vector3">direction</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="1564" data-toggle="tooltip" data-title="number">c</span> <span class="punctuation">=</span> <a href="section.html#1010"><span data-toggle="tooltip" data-title="Vector3">oc</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3) =&gt; number">dot</span><span class="punctuation">(</span><a href="section.html#1010"><span data-toggle="tooltip" data-title="Vector3">oc</span></a><span class="punctuation">)</span> <span class="punctuation">-</span> <a href="section.html#674"><span data-toggle="tooltip" data-title="number">radius</span></a> <span class="punctuation">*</span> <a href="section.html#674"><span data-toggle="tooltip" data-title="number">radius</span></a><span class="punctuation">;</span>
+</code></pre>
+<div class="visualizer" id="visualizer2"></div>
+<p>Let’s assume the closest hit point (smallest t):</p>
+<pre class="syntaxhighlight"><code>    <span class="keyword">const</span> <span id="1781" data-toggle="tooltip" data-title="number">Δ</span> <span class="punctuation">=</span> <a href="section.html#1521"><span data-toggle="tooltip" data-title="number">b</span></a> <span class="punctuation">*</span> <a href="section.html#1521"><span data-toggle="tooltip" data-title="number">b</span></a> <span class="punctuation">-</span> <span class="number">4</span> <span class="punctuation">*</span> <a href="section.html#1473"><span data-toggle="tooltip" data-title="number">a</span></a> <span class="punctuation">*</span> <a href="section.html#1564"><span data-toggle="tooltip" data-title="number">c</span></a><span class="punctuation">;</span>
+    <span class="keyword">if</span> <span class="punctuation">(</span><a href="section.html#1781"><span data-toggle="tooltip" data-title="number">Δ</span></a> <span class="punctuation">&lt;</span> <span class="number">0</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="keyword">return</span> <span class="keyword">null</span><span class="punctuation">;</span>
+    <span class="punctuation">}</span>
+    <span class="keyword">return</span> <span class="punctuation">(</span><span class="punctuation">-</span><a href="section.html#1521"><span data-toggle="tooltip" data-title="number">b</span></a> <span class="punctuation">-</span> <span class="typename" data-toggle="tooltip" data-title="Math">Math</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(x: number) =&gt; number">sqrt</span><span class="punctuation">(</span><a href="section.html#1781"><span data-toggle="tooltip" data-title="number">Δ</span></a><span class="punctuation">)</span><span class="punctuation">)</span> <span class="punctuation">/</span> <span class="punctuation">(</span><span class="number">2.0</span> <span class="punctuation">*</span> <a href="section.html#1473"><span data-toggle="tooltip" data-title="number">a</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+<h3 id="generate-color">Generate color</h3>
+<pre class="syntaxhighlight"><code><span class="keyword">function</span> <span id="1894" class="member" data-toggle="tooltip" data-title="(ray: Ray, hitSphere: (center: Vector3, radius: number, ray: Ray) =&gt; number) =&gt; Vector3">GenerateColor</span><span class="punctuation">(</span><span id="1953" data-toggle="tooltip" data-title="Ray">ray</span><span class="punctuation">:</span> <a href="section.html#4701"><span data-toggle="tooltip" data-title="Ray">Ray</span></a><span class="punctuation">,</span> <span id="1962" data-toggle="tooltip" data-title="(center: Vector3, radius: number, ray: Ray) =&gt; number">hitSphere</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="1975" data-toggle="tooltip" data-title="Vector3">center</span><span class="punctuation">:</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="Vector3">Vector3</span></a><span class="punctuation">,</span> <span id="1991" data-toggle="tooltip" data-title="number">radius</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="2007" data-toggle="tooltip" data-title="Ray">ray</span><span class="punctuation">:</span> <a href="section.html#4701"><span data-toggle="tooltip" data-title="Ray">Ray</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="keyword">number</span> <span class="punctuation">|</span> <span class="keyword">null</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+</code></pre>
+<details>
+<summary>setup sphere</summary>
+<pre class="syntaxhighlight"><code>    <span class="keyword">const</span> <span id="2077" data-toggle="tooltip" data-title="Vector3">center</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="2118" data-toggle="tooltip" data-title="0.5">radius</span> <span class="punctuation">=</span> <span class="number">0.5</span><span class="punctuation">;</span>
+</code></pre>
+</details>
+<pre class="syntaxhighlight"><code><span class="keyword">const</span> <span id="2159" data-toggle="tooltip" data-title="number">intersection</span> <span class="punctuation">=</span> <a href="section.html#1962"><span data-toggle="tooltip" data-title="(center: Vector3, radius: number, ray: Ray) =&gt; number">hitSphere</span></a><span class="punctuation">(</span><a href="section.html#2077"><span data-toggle="tooltip" data-title="Vector3">center</span></a><span class="punctuation">,</span> <a href="section.html#2118"><span data-toggle="tooltip" data-title="0.5">radius</span></a><span class="punctuation">,</span> <a href="section.html#1953"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">if</span> <span class="punctuation">(</span><a href="section.html#2159"><span data-toggle="tooltip" data-title="number">intersection</span></a> <span class="punctuation">!=</span> <span class="keyword">null</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+</code></pre>
+<blockquote>
+<p>Let’s just visualize the normals with a color map. A common trick used for visualizing normals (because it’s easy and somewhat intuitive to assume N is a unit length vector — so each component is between −1 and 1) is to map each component to the interval from 0 to 1, and then map x/y/z to r/g/b.</p>
+</blockquote>
+<p>To get the same color as that in <a href="https://raytracing.github.io/images/img-1-06-1.jpg">Ray Tracing In One Weekend</a>, we need to deal with coordinate conversion:
+<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>y</mi></mrow><annotation encoding="application/x-tex">y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> -&gt; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>y</mi></mrow><annotation encoding="application/x-tex">-y</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.7777700000000001em;vertical-align:-0.19444em;"></span><span class="base textstyle uncramped"><span class="mord">−</span><span class="mord mathit" style="margin-right:0.03588em;">y</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>z</mi></mrow><annotation encoding="application/x-tex">z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.43056em;"></span><span class="strut bottom" style="height:0.43056em;vertical-align:0em;"></span><span class="base textstyle uncramped"><span class="mord mathit" style="margin-right:0.04398em;">z</span></span></span></span> -&gt; <span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>−</mo><mi>z</mi></mrow><annotation encoding="application/x-tex">-z</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.58333em;"></span><span class="strut bottom" style="height:0.66666em;vertical-align:-0.08333em;"></span><span class="base textstyle uncramped"><span class="mord">−</span><span class="mord mathit" style="margin-right:0.04398em;">z</span></span></span></span>.</p>
+<pre class="syntaxhighlight"><code>        <span class="keyword">const</span> <span id="2821" data-toggle="tooltip" data-title="Vector3">normal</span> <span class="punctuation">=</span> <a href="section.html#1953"><span data-toggle="tooltip" data-title="Ray">ray</span></a>
+            <span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(t: number, target: Vector3) =&gt; Vector3">at</span><span class="punctuation">(</span><a href="section.html#2159"><span data-toggle="tooltip" data-title="number">intersection</span></a><span class="punctuation">,</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">)</span>
+            <span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(a: Vector3) =&gt; Vector3">sub</span><span class="punctuation">(</span><a href="section.html#2077"><span data-toggle="tooltip" data-title="Vector3">center</span></a><span class="punctuation">)</span>
+            <span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">normalize</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            
+        <span class="keyword">return</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span>
+            <span class="number">0.5</span> <span class="punctuation">*</span> <span class="punctuation">(</span><a href="section.html#2821"><span data-toggle="tooltip" data-title="Vector3">normal</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">x</span> <span class="punctuation">+</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span>
+            <span class="number">0.5</span> <span class="punctuation">*</span> <span class="punctuation">(</span><span class="punctuation">-</span><a href="section.html#2821"><span data-toggle="tooltip" data-title="Vector3">normal</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">y</span> <span class="punctuation">+</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span>
+            <span class="number">0.5</span> <span class="punctuation">*</span> <span class="punctuation">(</span><span class="punctuation">-</span><a href="section.html#2821"><span data-toggle="tooltip" data-title="Vector3">normal</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">z</span> <span class="punctuation">+</span> <span class="number">1</span><span class="punctuation">)</span>
+        <span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="punctuation">}</span>
+</code></pre>
+<details>
+<summary>normal previous work</summary>
+<pre class="syntaxhighlight"><code>    <span class="keyword">const</span> <span id="3140" data-toggle="tooltip" data-title="Vector3">unitDirection</span> <span class="punctuation">=</span> <a href="section.html#1953"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Vector3">direction</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">clone</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">normalize</span><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3201" data-toggle="tooltip" data-title="number">t</span> <span class="punctuation">=</span> <span class="number">0.5</span> <span class="punctuation">*</span> <span class="punctuation">(</span><a href="section.html#3140"><span data-toggle="tooltip" data-title="Vector3">unitDirection</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">y</span> <span class="punctuation">+</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3244" data-toggle="tooltip" data-title="Vector3">blend</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0.5</span><span class="punctuation">,</span> <span class="number">0.7</span><span class="punctuation">,</span> <span class="number">1.0</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3, alpha: number) =&gt; Vector3">lerp</span><span class="punctuation">(</span><span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">,</span> <a href="section.html#3201"><span data-toggle="tooltip" data-title="number">t</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">return</span> <a href="section.html#3244"><span data-toggle="tooltip" data-title="Vector3">blend</span></a><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+<h3 id="render-image">Render image</h3>
+<pre class="syntaxhighlight"><code><span class="keyword">function</span> <span id="3330" class="member" data-toggle="tooltip" data-title="(canvas: HTMLCanvasElement, generateColor: (ray: Ray) =&gt; Vector3) =&gt; void">RenderImage</span><span class="punctuation">(</span><span id="3381" data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="HTMLCanvasElement">HTMLCanvasElement</span><span class="punctuation">,</span> <span id="3407" data-toggle="tooltip" data-title="(ray: Ray) =&gt; Vector3">generateColor</span><span class="punctuation">:</span> <span class="punctuation">(</span><span id="3424" data-toggle="tooltip" data-title="Ray">ray</span><span class="punctuation">:</span> <a href="section.html#4701"><span data-toggle="tooltip" data-title="Ray">Ray</span></a><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="Vector3">Vector3</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+    <span class="keyword">const</span> <span id="3457" data-toggle="tooltip" data-title="Vector3">topLeftCorner</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="punctuation">-</span><span class="number">2</span><span class="punctuation">,</span> <span class="punctuation">-</span><span class="number">1</span><span class="punctuation">,</span> <span class="number">1</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3507" data-toggle="tooltip" data-title="Vector3">horizontal</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">4</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3552" data-toggle="tooltip" data-title="Vector3">vertical</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">2</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3595" data-toggle="tooltip" data-title="Vector3">origin</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="keyword">const</span> <span id="3637" data-toggle="tooltip" data-title="number">width</span> <span class="punctuation">=</span> <a href="section.html#3381"><span data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">width</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3669" data-toggle="tooltip" data-title="number">height</span> <span class="punctuation">=</span> <a href="section.html#3381"><span data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">height</span>
+    <span class="keyword">const</span> <span id="3702" data-toggle="tooltip" data-title="CanvasRenderingContext2D">context</span> <span class="punctuation">=</span> <a href="section.html#3381"><span data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (contextId: &quot;2d&quot;, options?: CanvasRenderingContext2DSettings): CanvasRenderingContext2D; (contextId: &quot;bitmaprenderer&quot;, options?: ImageBitmapRenderingContextSettings): ImageBitmapRenderingContext; (contextId: &quot;webgl&quot;, options?: WebGLContextAttributes): WebGLRenderingContext; (contextId: &quot;webgl2&quot;, options?: WebGLCon...">getContext</span><span class="punctuation">(</span><span class="string">&#039;2d&#039;</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="keyword">const</span> <span id="3747" data-toggle="tooltip" data-title="ImageData">imageData</span> <span class="punctuation">=</span> <a href="section.html#3702"><span data-toggle="tooltip" data-title="CanvasRenderingContext2D">context</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(sx: number, sy: number, sw: number, sh: number) =&gt; ImageData">getImageData</span><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <a href="section.html#3637"><span data-toggle="tooltip" data-title="number">width</span></a><span class="punctuation">,</span> <a href="section.html#3669"><span data-toggle="tooltip" data-title="number">height</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword">let</span> <span id="3816" data-toggle="tooltip" data-title="number">x</span> <span class="punctuation">=</span> <span class="number">0</span><span class="punctuation">;</span> <a href="section.html#3816"><span data-toggle="tooltip" data-title="number">x</span></a> <span class="punctuation">&lt;</span> <a href="section.html#3637"><span data-toggle="tooltip" data-title="number">width</span></a><span class="punctuation">;</span> <span class="punctuation">++</span><a href="section.html#3816"><span data-toggle="tooltip" data-title="number">x</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <span class="keyword">for</span> <span class="punctuation">(</span><span class="keyword">let</span> <span id="3858" data-toggle="tooltip" data-title="number">y</span> <span class="punctuation">=</span> <span class="number">0</span><span class="punctuation">;</span> <a href="section.html#3858"><span data-toggle="tooltip" data-title="number">y</span></a> <span class="punctuation">&lt;</span> <a href="section.html#3669"><span data-toggle="tooltip" data-title="number">height</span></a><span class="punctuation">;</span> <span class="punctuation">++</span><a href="section.html#3858"><span data-toggle="tooltip" data-title="number">y</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+            <span class="keyword">const</span> <span id="3903" data-toggle="tooltip" data-title="number">u</span> <span class="punctuation">=</span> <a href="section.html#3816"><span data-toggle="tooltip" data-title="number">x</span></a> <span class="punctuation">/</span> <a href="section.html#3637"><span data-toggle="tooltip" data-title="number">width</span></a><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="3936" data-toggle="tooltip" data-title="number">v</span> <span class="punctuation">=</span> <a href="section.html#3858"><span data-toggle="tooltip" data-title="number">y</span></a> <span class="punctuation">/</span> <a href="section.html#3669"><span data-toggle="tooltip" data-title="number">height</span></a><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="3970" data-toggle="tooltip" data-title="Vector3">direction</span> <span class="punctuation">=</span> <a href="section.html#3457"><span data-toggle="tooltip" data-title="Vector3">topLeftCorner</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="() =&gt; Vector3">clone</span><span class="punctuation">(</span><span class="punctuation">)</span>
+                <span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3, s: number) =&gt; Vector3">addScaledVector</span><span class="punctuation">(</span><a href="section.html#3507"><span data-toggle="tooltip" data-title="Vector3">horizontal</span></a><span class="punctuation">,</span> <a href="section.html#3903"><span data-toggle="tooltip" data-title="number">u</span></a><span class="punctuation">)</span>
+                <span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(v: Vector3, s: number) =&gt; Vector3">addScaledVector</span><span class="punctuation">(</span><a href="section.html#3552"><span data-toggle="tooltip" data-title="Vector3">vertical</span></a><span class="punctuation">,</span> <a href="section.html#3936"><span data-toggle="tooltip" data-title="number">v</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+            <span class="keyword">const</span> <span id="4118" data-toggle="tooltip" data-title="Ray">ray</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="section.html#4701"><span data-toggle="tooltip" data-title="typeof Ray">Ray</span></a><span class="punctuation">(</span><a href="section.html#3595"><span data-toggle="tooltip" data-title="Vector3">origin</span></a><span class="punctuation">,</span> <a href="section.html#3970"><span data-toggle="tooltip" data-title="Vector3">direction</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="4170" data-toggle="tooltip" data-title="Vector3">color</span><span class="punctuation">:</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="Vector3">Vector3</span></a> <span class="punctuation">=</span> <a href="section.html#3407"><span data-toggle="tooltip" data-title="(ray: Ray) =&gt; Vector3">generateColor</span></a><span class="punctuation">(</span><a href="section.html#4118"><span data-toggle="tooltip" data-title="Ray">ray</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+            <span class="keyword">const</span> <span id="4226" data-toggle="tooltip" data-title="number">n</span> <span class="punctuation">=</span> <span class="punctuation">(</span><a href="section.html#3858"><span data-toggle="tooltip" data-title="number">y</span></a> <span class="punctuation">*</span> <a href="section.html#3637"><span data-toggle="tooltip" data-title="number">width</span></a> <span class="punctuation">+</span> <a href="section.html#3816"><span data-toggle="tooltip" data-title="number">x</span></a><span class="punctuation">)</span> <span class="punctuation">*</span> <span class="number">4</span><span class="punctuation">;</span>
+            <a href="section.html#3747"><span data-toggle="tooltip" data-title="ImageData">imageData</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray">data</span><span class="punctuation">[</span><a href="section.html#4226"><span data-toggle="tooltip" data-title="number">n</span></a><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="section.html#4170"><span data-toggle="tooltip" data-title="Vector3">color</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">x</span> <span class="punctuation">*</span> <span class="number">255</span><span class="punctuation">;</span>
+            <a href="section.html#3747"><span data-toggle="tooltip" data-title="ImageData">imageData</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray">data</span><span class="punctuation">[</span><a href="section.html#4226"><span data-toggle="tooltip" data-title="number">n</span></a> <span class="punctuation">+</span> <span class="number">1</span><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="section.html#4170"><span data-toggle="tooltip" data-title="Vector3">color</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">y</span> <span class="punctuation">*</span> <span class="number">255</span><span class="punctuation">;</span>
+            <a href="section.html#3747"><span data-toggle="tooltip" data-title="ImageData">imageData</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray">data</span><span class="punctuation">[</span><a href="section.html#4226"><span data-toggle="tooltip" data-title="number">n</span></a> <span class="punctuation">+</span> <span class="number">2</span><span class="punctuation">]</span> <span class="punctuation">=</span> <a href="section.html#4170"><span data-toggle="tooltip" data-title="Vector3">color</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">z</span> <span class="punctuation">*</span> <span class="number">255</span><span class="punctuation">;</span>
+            <a href="section.html#3747"><span data-toggle="tooltip" data-title="ImageData">imageData</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="Uint8ClampedArray">data</span><span class="punctuation">[</span><a href="section.html#4226"><span data-toggle="tooltip" data-title="number">n</span></a> <span class="punctuation">+</span> <span class="number">3</span><span class="punctuation">]</span> <span class="punctuation">=</span> <span class="number">255</span><span class="punctuation">;</span>
+        <span class="punctuation">}</span>
+    <span class="punctuation">}</span>
+    <a href="section.html#3702"><span data-toggle="tooltip" data-title="CanvasRenderingContext2D">context</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ (imagedata: ImageData, dx: number, dy: number): void; (imagedata: ImageData, dx: number, dy: number, dirtyX: number, dirtyY: number, dirtyWidth: number, dirtyHeight: number): void; }">putImageData</span><span class="punctuation">(</span><a href="section.html#3747"><span data-toggle="tooltip" data-title="ImageData">imageData</span></a><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">;</span>
+<span class="punctuation">}</span>
+</code></pre>
+</details>
+<h2 id="result">Result</h2>
+<div class="visualizer" id="visualizer3"></div>
+<details>
+<summary>normal trivial setup</summary>
+<details>
+<summary>normal imports</summary>
+<pre class="syntaxhighlight"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="4658" data-toggle="tooltip" data-title="(fn: any) =&gt; void">onMount</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;svelte&#039;</span><span class="punctuation">;</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span id="4692" data-toggle="tooltip" data-title="typeof Vector3">Vector3</span><span class="punctuation">,</span> <span id="4701" data-toggle="tooltip" data-title="typeof Ray">Ray</span><span class="punctuation">,</span> <span id="4706" data-toggle="tooltip" data-title="typeof Sphere">Sphere</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;three&#039;</span><span class="punctuation">;</span>
+</code></pre>
+</details>
+<pre class="syntaxhighlight"><code><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span id="4729" class="member" data-toggle="tooltip" data-title="() =&gt; void">Section</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+    <span class="keyword">let</span> <span id="4787" data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span><span class="punctuation">:</span> <span class="typename" data-toggle="tooltip" data-title="HTMLCanvasElement">HTMLCanvasElement</span><span class="punctuation">;</span>
+    <a href="section.html#4658"><span data-toggle="tooltip" data-title="(fn: any) =&gt; void">onMount</span></a><span class="punctuation">(</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+        <span class="keyword">function</span> <span id="4834" class="member" data-toggle="tooltip" data-title="(center: Vector3, radius: number, ray: Ray) =&gt; void">hitSphere</span><span class="punctuation">(</span><span id="4862" data-toggle="tooltip" data-title="Vector3">center</span><span class="punctuation">:</span> <a href="section.html#4692"><span data-toggle="tooltip" data-title="Vector3">Vector3</span></a><span class="punctuation">,</span> <span id="4878" data-toggle="tooltip" data-title="number">radius</span><span class="punctuation">:</span> <span class="keyword">number</span><span class="punctuation">,</span> <span id="4894" data-toggle="tooltip" data-title="Ray">ray</span><span class="punctuation">:</span> <a href="section.html#4701"><span data-toggle="tooltip" data-title="Ray">Ray</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+            <span class="comment">//@ts-ignore</span>
+            <span class="punctuation">&lt;</span><a href="section.html#0"><span class="member" data-toggle="tooltip" data-title="(center: Vector3, radius: number, ray: Ray) =&gt; number">HitSphere</span></a> <span class="punctuation">/</span><span class="punctuation">&gt;</span><span class="punctuation">;</span>
+        <span class="punctuation">}</span>
+
+        <span class="keyword">function</span> <span id="4968" class="member" data-toggle="tooltip" data-title="(ray: Ray) =&gt; void">generateColor</span><span class="punctuation">(</span><span id="5001" data-toggle="tooltip" data-title="Ray">ray</span><span class="punctuation">:</span> <a href="section.html#4701"><span data-toggle="tooltip" data-title="Ray">Ray</span></a><span class="punctuation">)</span> <span class="punctuation">{</span>
+            <span class="comment">//@ts-ignore</span>
+            <span class="punctuation">&lt;</span><a href="section.html#1894"><span class="member" data-toggle="tooltip" data-title="(ray: Ray, hitSphere: (center: Vector3, radius: number, ray: Ray) =&gt; number) =&gt; Vector3">GenerateColor</span></a> <span class="punctuation">/</span><span class="punctuation">&gt;</span><span class="punctuation">;</span>
+        <span class="punctuation">}</span><span class="punctuation">;</span>
+
+        <span class="comment">//@ts-ignore</span>
+        <span class="punctuation">&lt;</span><a href="section.html#3330"><span class="member" data-toggle="tooltip" data-title="(canvas: HTMLCanvasElement, generateColor: (ray: Ray) =&gt; Vector3) =&gt; void">RenderImage</span></a> <span class="punctuation">/</span><span class="punctuation">&gt;</span><span class="punctuation">;</span>
+    <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="keyword">let</span> <span id="5143" data-toggle="tooltip" data-title="number">width</span> <span class="punctuation">=</span> <span class="number">600</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="5164" data-toggle="tooltip" data-title="number">height</span> <span class="punctuation">=</span> <span class="number">300</span><span class="punctuation">;</span>
+
+    <span class="punctuation">&lt;</span><span data-toggle="tooltip" data-title="any">div</span> <span id="5188" data-toggle="tooltip" data-title="string">class</span><span class="punctuation">=</span><span class="string">&quot;container&quot;</span><span class="punctuation">&gt;</span>
+        <span class="punctuation">&lt;</span><span data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span> <span id="5223" data-toggle="tooltip" data-title="HTMLCanvasElement">bindRef</span><span class="punctuation">=</span><span class="punctuation">{</span><a href="section.html#4787"><span data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span></a><span class="punctuation">}</span> <span id="5240" data-toggle="tooltip" data-title="number">width</span><span class="punctuation">=</span><span class="punctuation">{</span><a href="section.html#5143"><span data-toggle="tooltip" data-title="number">width</span></a><span class="punctuation">}</span> <span id="5254" data-toggle="tooltip" data-title="number">height</span><span class="punctuation">=</span><span class="punctuation">{</span><a href="section.html#5164"><span data-toggle="tooltip" data-title="number">height</span></a><span class="punctuation">}</span><span class="punctuation">&gt;</span><span class="punctuation">&lt;</span><span class="punctuation">/</span><span data-toggle="tooltip" data-title="HTMLCanvasElement">canvas</span><span class="punctuation">&gt;</span>
+    <span class="punctuation">&lt;</span><span class="punctuation">/</span><span data-toggle="tooltip" data-title="any">div</span><span class="punctuation">&gt;</span>
+<span class="punctuation">}</span>
+</code></pre>
+</details>
+
+        
+    </div>
+            <div class="stickypane">
+                
+    <div class="pagemenu">
+        <h3>On This Page</h3>
+            <ul class="pagetree">
+                
+            </ul>
+    </div>
+                
+    <div class="footer">
+        Copyright © 2020 mistlog
+        <div class="ad">
+            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
+        </div>
+    </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../../../js/main.js"></script>
+    <script src="../../../js/visualizer.js"></script>
+<script>
+window.runVisualizer("custom-image", "fig-1-06-1.jpg https://raytracing.github.io/books/RayTracingInOneWeekend.html#surfacenormalsandmultipleobjects", "visualizer1");
+window.runVisualizer("custom-image", "fig-1-05-1.jpg https://raytracing.github.io/images/fig-1-05-1.jpg", "visualizer2");
+window.runVisualizer("illustrator", "normal 100% 400px", "visualizer3");
+</script>
+</body>
+</html>
