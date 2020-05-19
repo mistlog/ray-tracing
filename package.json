@@ -1,0 +1,36 @@
+{
+  "name": "ray-tracing",
+  "version": "0.0.1",
+  "scripts": {
+    "transcribe": "td ./src/common",
+    "transcribe:watch": "td ./src/common -w",
+    "bundle": "rollup -c",
+    "bundle:watch": "rollup -c -w",
+    "docs": "lits",
+    "docs:watch": "forever start -c node node_modules/litscript/lib/cli.js --watch",
+    "docs:stop": "forever stop node_modules/litscript/lib/cli.js",
+    "dev": "concurrently \"npm run transcribe:watch\" \"npm run bundle:watch\"",
+    "build": "npm run transcribe && npm run bundle && npm run docs",
+    "clean": "node ./script/clean.js"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.0",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@types/plotly.js": "^1.44.24",
+    "concurrently": "^5.1.0",
+    "delete": "^1.1.0",
+    "forever": "^2.0.0",
+    "litscript": "^1.1.5",
+    "live-server": "^1.2.1",
+    "rollup": "^1.20.0",
+    "rollup-plugin-copy": "^3.3.0",
+    "rollup-plugin-svelte": "^5.0.3",
+    "rollup-plugin-svelte-draft": "0.0.4",
+    "rollup-plugin-terser": "^5.1.2",
+    "svelte": "^3.18.1",
+    "svelte-types": "0.0.6",
+    "three": "^0.114.0",
+    "typedraft": "0.1.12"
+  },
+  "dependencies": {}
+}
