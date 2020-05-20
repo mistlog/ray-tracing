@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../../../depth-limit.tsx"
+  ],
+  "sourcesContent": [
+    "\n<script>\nimport { Vector3 } from 'three';\n\n\nlet color = new Vector3(0.5, 0.7, 1.0);\nlet t = 0;\nlet depth = 1;\n$: {\n  color = new Vector3(0.5, 0.7, 1.0).lerp(new Vector3(1, 1, 1), t);\n}\nconst generateColor = (color, depth) => {\n  return color * Math.pow(0.5, depth);\n};\n</script>\n\n\n<div class=\"container\">\n        <input type=\"range\" bind:value={t} min={0} max={1} step={0.01} />\n        <div>{`t: ${t}`}</div>\n        <input type=\"range\" bind:value={depth} min={1} max={3} step={1} />\n        <div>{`depth: ${depth}`}</div>\n        <div>{`blended: rgb(${generateColor(color.x, depth).toFixed(2)}, ${generateColor(color.y, depth).toFixed(2)}, ${generateColor(color.z, depth).toFixed(2)})`}</div>\n        <div>{`start: rgb(${0.5}, ${0.7}, ${1.0})`}</div>\n        <div>{`end: rgb(${1.0}, ${1.0}, ${1.0})`}</div>\n        <div style={`align-self:center;width:150px;height:150px;background-color:rgb(${generateColor(color.x, depth) * 255}, ${generateColor(color.y, depth) * 255}, ${generateColor(color.z, depth) * 255})`}></div>\n    </div>\n\n\n<style>\n@import url(https://fonts.googleapis.com/css?family=Nunito:400,600|Sanchez:400,400i|Cousine:400;700);\n\n.container {\n    margin-top: 20px;\n    margin-left: 20px;\n    display: flex;\n    flex-direction: column;\n    align-items: flex-start;\n    font-family: 'Sanchez';\n    font-size: 16px;\n}\n\n.container>div {\n    margin-top: 5px;\n}\n</style>"
+  ],
+  "names": [],
+  "mappings": "AA8BA,QAAQ,IAAI,uFAAuF,CAAC,CAAC,AAErG,UAAU,8BAAC,CAAC,AACR,UAAU,CAAE,IAAI,CAChB,WAAW,CAAE,IAAI,CACjB,OAAO,CAAE,IAAI,CACb,cAAc,CAAE,MAAM,CACtB,WAAW,CAAE,UAAU,CACvB,WAAW,CAAE,SAAS,CACtB,SAAS,CAAE,IAAI,AACnB,CAAC,AAED,yBAAU,CAAC,GAAG,eAAC,CAAC,AACZ,UAAU,CAAE,GAAG,AACnB,CAAC"
+}

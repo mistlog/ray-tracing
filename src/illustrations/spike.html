@@ -1,0 +1,424 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ray Tracing</title>
+    <link rel="icon" type="image/icon" href="../../images/favicon.png" />
+    <link rel="stylesheet" href="../../css/main.css" />
+    
+    
+</head>
+<body>
+    
+    <div class="navbar">
+        <div class="navmenu">
+            
+    <a class="title enabled" href="../../index.html">
+        <img src="../../images/favicon.png" />
+        <span>Ray Tracing</span>
+    </a>
+    <a class="enabled" href="https://github.com/mistlog/ray-tracing">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path d="M537.6 226.6c4.1-10.7 6.4-22.4 6.4-34.6 0-53-43-96-96-96-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32c-88.4 0-160 71.6-160 160 0 2.7.1 5.4.2 8.1C40.2 219.8 0 273.2 0 336c0 79.5 64.5 144 144 144h368c70.7 0 128-57.3 128-128 0-61.9-44-113.6-102.4-125.4zm-132.9 88.7L299.3 420.7c-6.2 6.2-16.4 6.2-22.6 0L171.3 315.3c-10.1-10.1-2.9-27.3 11.3-27.3H248V176c0-8.8 7.2-16 16-16h48c8.8 0 16 7.2 16 16v112h65.4c14.2 0 21.4 17.2 11.3 27.3z"/></svg>
+        <span>Download</span>
+    </a>
+    <a class="enabled" href="https://github.com/mistlog/ray-tracing">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+        <span>GitHub</span>
+    </a>
+    <a class="enabled" href="../../license.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zM64 72c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8V72zm0 64c0-4.42 3.58-8 8-8h80c4.42 0 8 3.58 8 8v16c0 4.42-3.58 8-8 8H72c-4.42 0-8-3.58-8-8v-16zm192.81 248H304c8.84 0 16 7.16 16 16s-7.16 16-16 16h-47.19c-16.45 0-31.27-9.14-38.64-23.86-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34a15.986 15.986 0 0 1-14.31 8.84c-.38 0-.75-.02-1.14-.05-6.45-.45-12-4.75-14.03-10.89L144 354.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.77-16.19 54.05-9.7 66 14.16 2.02 4.06 5.96 6.5 10.16 6.5zM377 105L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1c0-6.3-2.5-12.4-7-16.9z"/></svg>
+        <span>License</span>
+    </a>
+    <a class="enabled" href="../common/index.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M223.7 239l136-136c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9L319.9 256l96.4 96.4c9.4 9.4 9.4 24.6 0 33.9L393.7 409c-9.4 9.4-24.6 9.4-33.9 0l-136-136c-9.5-9.4-9.5-24.6-.1-34zm-192 34l136 136c9.4 9.4 24.6 9.4 33.9 0l22.6-22.6c9.4-9.4 9.4-24.6 0-33.9L127.9 256l96.4-96.4c9.4-9.4 9.4-24.6 0-33.9L201.7 103c-9.4-9.4-24.6-9.4-33.9 0l-136 136c-9.5 9.4-9.5 24.6-.1 34z"/></svg>
+        <span>Previous: Common</span>
+    </a>
+    <a  >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34zm192-34l-136-136c-9.4-9.4-24.6-9.4-33.9 0l-22.6 22.6c-9.4 9.4-9.4 24.6 0 33.9l96.4 96.4-96.4 96.4c-9.4 9.4-9.4 24.6 0 33.9l22.6 22.6c9.4 9.4 24.6 9.4 33.9 0l136-136c9.4-9.2 9.4-24.4 0-33.8z"/></svg>
+        <span>Next:</span>
+    </a>
+        </div>
+        
+    <a class="hamburger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </a>
+    </div>
+    
+    <div class="layout">
+        <div class="sidepane collapsible">
+            
+    <div class="tocmenu">
+        <h3>Table of Contents</h3>
+        
+    <ul>
+        
+    <li>
+        
+        <a href="../../index.html"><span data-toggle="tooltip" data-title="Introduction page">Introduction</span></a>
+        
+    </li>
+    <li>
+        <button class="accordion">
+        Sections
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="../sections/output-an-image/section.html">Output an Image</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/vec3/section.html">The vec3 Class</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/ray/section.html">Rays, a Simple Camera, and Background</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/sphere/section.html">Adding a Sphere</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/normal/section.html">Surface Normals</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/multiple-objects/section.html">Multiple Objects</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/antialiasing/section.html">Antialiasing</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/diffuse/section.html">Diffuse Materials</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/metal/section.html">Metal</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/dielectric/section.html">Dielectrics</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/positionable-camera/section.html">Positionable Camera</a>
+        
+    </li>
+    <li>
+        
+        <a href="../sections/defocus-blur/section.html">Defocus Blur</a>
+        
+    </li>
+    </ul>
+    </li>
+    <li>
+        <button class="accordion">
+        Appendix
+        </button>
+            
+    <ul>
+        
+    <li>
+        
+        <a href="index.html">Illustrations</a>
+        
+    </li>
+    <li>
+        
+        <a href="../common/index.html">Common</a>
+        
+    </li>
+    </ul>
+    </li>
+    </ul>
+    </div>
+            
+        </div>
+        <div class="sideicon collapsible">
+            
+    <a class="hamburger">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </a>
+        </div>
+        <div class="scrollingarea closepopups">
+            
+    <div class="contentarea">
+        <pre class="syntaxhighlight"><code><span class="keyword">import</span> <span class="punctuation">{</span> <span id="8" data-toggle="tooltip" data-title="typeof Scene">Scene</span><span class="punctuation">,</span> <span id="15" data-toggle="tooltip" data-title="typeof PerspectiveCamera">PerspectiveCamera</span><span class="punctuation">,</span> <span id="34" data-toggle="tooltip" data-title="typeof WebGLRenderer">WebGLRenderer</span><span class="punctuation">,</span> <span id="49" data-toggle="tooltip" data-title="typeof MeshBasicMaterial">MeshBasicMaterial</span><span class="punctuation">,</span> <span id="68" data-toggle="tooltip" data-title="typeof Mesh">Mesh</span><span class="punctuation">,</span> <span id="74" data-toggle="tooltip" data-title="typeof SphereGeometry">SphereGeometry</span><span class="punctuation">,</span> <span id="90" data-toggle="tooltip" data-title="typeof MeshNormalMaterial">MeshNormalMaterial</span><span class="punctuation">,</span> <span id="110" data-toggle="tooltip" data-title="typeof Color">Color</span><span class="punctuation">,</span> <span id="117" data-toggle="tooltip" data-title="typeof AxesHelper">AxesHelper</span><span class="punctuation">,</span> <span id="129" data-toggle="tooltip" data-title="typeof MeshPhongMaterial">MeshPhongMaterial</span><span class="punctuation">,</span> <span id="148" data-toggle="tooltip" data-title="typeof ShadowMaterial">ShadowMaterial</span><span class="punctuation">,</span> <span id="164" data-toggle="tooltip" data-title="typeof MeshStandardMaterial">MeshStandardMaterial</span><span class="punctuation">,</span> <span id="186" data-toggle="tooltip" data-title="typeof Vector2">Vector2</span><span class="punctuation">,</span> <span id="195" data-toggle="tooltip" data-title="typeof Raycaster">Raycaster</span><span class="punctuation">,</span> <span id="206" data-toggle="tooltip" data-title="typeof Vector3">Vector3</span><span class="punctuation">,</span> <span id="215" data-toggle="tooltip" data-title="typeof Geometry">Geometry</span><span class="punctuation">,</span> <span id="225" data-toggle="tooltip" data-title="typeof LineBasicMaterial">LineBasicMaterial</span><span class="punctuation">,</span> <span id="244" data-toggle="tooltip" data-title="typeof Line">Line</span><span class="punctuation">,</span> <span id="250" data-toggle="tooltip" data-title="typeof BufferGeometry">BufferGeometry</span><span class="punctuation">,</span> <span id="266" data-toggle="tooltip" data-title="TextureEncoding">sRGBEncoding</span><span class="punctuation">,</span> <span id="280" data-toggle="tooltip" data-title="typeof TextureLoader">TextureLoader</span><span class="punctuation">,</span> <span id="295" data-toggle="tooltip" data-title="typeof BoxBufferGeometry">BoxBufferGeometry</span><span class="punctuation">,</span> <span id="314" data-toggle="tooltip" data-title="typeof DirectionalLight">DirectionalLight</span><span class="punctuation">,</span> <span id="332" data-toggle="tooltip" data-title="typeof HemisphereLight">HemisphereLight</span><span class="punctuation">,</span> <span id="349" data-toggle="tooltip" data-title="typeof Material">Material</span><span class="punctuation">,</span> <span id="359" data-toggle="tooltip" data-title="typeof CameraHelper">CameraHelper</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&quot;three&quot;</span><span class="punctuation">;</span>
+
+<span class="comment">//@ts-ignore</span>
+<span class="keyword">import</span> <span class="punctuation">{</span> <span id="411" data-toggle="tooltip" data-title="any">OrbitControls</span> <span class="punctuation">}</span> <span class="keyword">from</span> <span class="string">&#039;three&#039;</span><span class="punctuation">;</span>
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">function</span> <span id="441" class="member" data-toggle="tooltip" data-title="() =&gt; void">App</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+    <span class="comment">// these need to be accessed inside more than one function so we&#039;ll declare them first</span>
+    <span class="keyword">let</span> <span id="574" data-toggle="tooltip" data-title="any">container</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="593" data-toggle="tooltip" data-title="any">camera</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="609" data-toggle="tooltip" data-title="any">controls</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="627" data-toggle="tooltip" data-title="any">renderer</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="645" data-toggle="tooltip" data-title="any">scene</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="660" data-toggle="tooltip" data-title="any">mouse</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="675" data-toggle="tooltip" data-title="boolean">mouseMoved</span><span class="punctuation">:</span> <span class="keyword">boolean</span> <span class="punctuation">=</span> <span class="keyword">false</span><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="712" data-toggle="tooltip" data-title="Raycaster">raycaster</span><span class="punctuation">:</span> <a href="spike.html#195"><span data-toggle="tooltip" data-title="Raycaster">Raycaster</span></a><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="742" data-toggle="tooltip" data-title="Vector3">normal</span><span class="punctuation">:</span> <a href="spike.html#206"><span data-toggle="tooltip" data-title="Vector3">Vector3</span></a><span class="punctuation">;</span>
+    <span class="keyword">let</span> <span id="767" data-toggle="tooltip" data-title="Line">line</span><span class="punctuation">:</span> <a href="spike.html#244"><span data-toggle="tooltip" data-title="Line">Line</span></a><span class="punctuation">;</span>
+
+    <span class="comment">// ref: https://discoverthreejs.com/book/first-steps/camera-controls/</span>
+    <span class="keyword">function</span> <span id="779" class="member" data-toggle="tooltip" data-title="() =&gt; void">init</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a> <span class="punctuation">=</span> <span data-toggle="tooltip" data-title="Document">document</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ &lt;K extends &quot;object&quot; | &quot;area&quot; | &quot;label&quot; | &quot;title&quot; | &quot;legend&quot; | &quot;font&quot; | &quot;select&quot; | &quot;data&quot; | &quot;a&quot; | &quot;abbr&quot; | &quot;address&quot; | &quot;applet&quot; | &quot;article&quot; | &quot;aside&quot; | &quot;audio&quot; | &quot;b&quot; | &quot;base&quot; | &quot;basefont&quot; | &quot;bdi&quot; | ... 99 more ... | &quot;wbr&quot;&gt;(selectors: K): HTMLElementTagNameMap[K]; &lt;K extends &quot;symbol&quot; | ... 55 more ... | &quot;view&quot;&gt;(sele...">querySelector</span><span class="punctuation">(</span><span class="string">&#039;body&#039;</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#8"><span data-toggle="tooltip" data-title="typeof Scene">Scene</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a><span class="punctuation">.</span>background <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#110"><span data-toggle="tooltip" data-title="typeof Color">Color</span></a><span class="punctuation">(</span><span class="number">0x8FBCD4</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <a href="spike.html#1403"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">createMouse</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#1326"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">createRayCaster</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#1469"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">createCamera</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#1854"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">createControls</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#1952"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">createLights</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#2305"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">createMeshes</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#3131"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">createRenderer</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="comment">// start the animation loop</span>
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>setAnimationLoop<span class="punctuation">(</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">=&gt;</span> <span class="punctuation">{</span>
+
+            <a href="spike.html#3539"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">update</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <a href="spike.html#5512"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">render</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="1326" class="member" data-toggle="tooltip" data-title="() =&gt; void">createRayCaster</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <a href="spike.html#712"><span data-toggle="tooltip" data-title="Raycaster">raycaster</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#195"><span data-toggle="tooltip" data-title="typeof Raycaster">Raycaster</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="1403" class="member" data-toggle="tooltip" data-title="() =&gt; void">createMouse</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+        <a href="spike.html#660"><span data-toggle="tooltip" data-title="any">mouse</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#186"><span data-toggle="tooltip" data-title="typeof Vector2">Vector2</span></a><span class="punctuation">(</span><span class="punctuation">)</span>
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="1469" class="member" data-toggle="tooltip" data-title="() =&gt; void">createCamera</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#15"><span data-toggle="tooltip" data-title="typeof PerspectiveCamera">PerspectiveCamera</span></a><span class="punctuation">(</span>
+            <span class="number">35</span><span class="punctuation">,</span> <span class="comment">// FOV</span>
+            <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientWidth <span class="punctuation">/</span> <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientHeight<span class="punctuation">,</span> <span class="comment">// aspect</span>
+            <span class="number">0.1</span><span class="punctuation">,</span> <span class="comment">// near clipping plane</span>
+            <span class="number">1000</span><span class="punctuation">,</span> <span class="comment">// far clipping plane</span>
+        <span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a><span class="punctuation">.</span>position<span class="punctuation">.</span>set<span class="punctuation">(</span><span class="number">40</span><span class="punctuation">,</span> <span class="number">40</span><span class="punctuation">,</span> <span class="number">40</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="keyword">const</span> <span id="1782" data-toggle="tooltip" data-title="CameraHelper">helper</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#359"><span data-toggle="tooltip" data-title="typeof CameraHelper">CameraHelper</span></a><span class="punctuation">(</span> <a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a> <span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a><span class="punctuation">.</span>add<span class="punctuation">(</span> <a href="spike.html#1782"><span data-toggle="tooltip" data-title="CameraHelper">helper</span></a> <span class="punctuation">)</span><span class="punctuation">;</span>
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="1854" class="member" data-toggle="tooltip" data-title="() =&gt; void">createControls</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <a href="spike.html#609"><span data-toggle="tooltip" data-title="any">controls</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#411"><span data-toggle="tooltip" data-title="any">OrbitControls</span></a><span class="punctuation">(</span><a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a><span class="punctuation">,</span> <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="1952" class="member" data-toggle="tooltip" data-title="() =&gt; void">createLights</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <span class="keyword">const</span> <span id="1998" data-toggle="tooltip" data-title="HemisphereLight">ambientLight</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#332"><span data-toggle="tooltip" data-title="typeof HemisphereLight">HemisphereLight</span></a><span class="punctuation">(</span>
+            <span class="number">0xddeeff</span><span class="punctuation">,</span> <span class="comment">// sky color</span>
+            <span class="number">0x202020</span><span class="punctuation">,</span> <span class="comment">// ground color</span>
+            <span class="number">5</span><span class="punctuation">,</span> <span class="comment">// intensity</span>
+        <span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="comment">// const mainLight = new DirectionalLight(0xffffff, 5);</span>
+        <span class="comment">// mainLight.position.set(10, 10, 10);</span>
+
+        <a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a><span class="punctuation">.</span>add<span class="punctuation">(</span><a href="spike.html#1998"><span data-toggle="tooltip" data-title="HemisphereLight">ambientLight</span></a><span class="punctuation">,</span> <span class="keyword">null</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="2305" class="member" data-toggle="tooltip" data-title="() =&gt; void">createMeshes</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <span class="comment">//</span>
+        <span class="punctuation">{</span>
+            <span class="keyword">const</span> <span id="2376" data-toggle="tooltip" data-title="MeshNormalMaterial">material</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#90"><span data-toggle="tooltip" data-title="typeof MeshNormalMaterial">MeshNormalMaterial</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="2431" data-toggle="tooltip" data-title="SphereGeometry">geometry</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#74"><span data-toggle="tooltip" data-title="typeof SphereGeometry">SphereGeometry</span></a><span class="punctuation">(</span><span class="number">5</span><span class="punctuation">,</span> <span class="number">32</span><span class="punctuation">,</span> <span class="number">32</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="2491" data-toggle="tooltip" data-title="Mesh">sphere</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#68"><span data-toggle="tooltip" data-title="typeof Mesh">Mesh</span></a><span class="punctuation">(</span><a href="spike.html#2431"><span data-toggle="tooltip" data-title="SphereGeometry">geometry</span></a><span class="punctuation">,</span> <a href="spike.html#2376"><span data-toggle="tooltip" data-title="MeshNormalMaterial">material</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+            <a href="spike.html#2491"><span data-toggle="tooltip" data-title="Mesh">sphere</span></a><span class="punctuation">.</span><span data-toggle="tooltip" data-title="string">name</span> <span class="punctuation">=</span> <span class="string">&quot;sphere&quot;</span><span class="punctuation">;</span>
+            <span class="comment">// scene.add(sphere);</span>
+        <span class="punctuation">}</span>
+
+        <span class="comment">//</span>
+        <span class="punctuation">{</span>
+
+            <span class="keyword">const</span> <span id="2651" data-toggle="tooltip" data-title="any[]">points</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+            <a href="spike.html#2651"><span data-toggle="tooltip" data-title="any[]">points</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...items: any[]) =&gt; number">push</span><span class="punctuation">(</span><span class="keyword">new</span> <a href="spike.html#206"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <a href="spike.html#2651"><span data-toggle="tooltip" data-title="any[]">points</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...items: any[]) =&gt; number">push</span><span class="punctuation">(</span><span class="keyword">new</span> <a href="spike.html#206"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">10</span><span class="punctuation">,</span> <span class="number">10</span><span class="punctuation">,</span> <span class="number">10</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+            <span class="keyword">const</span> <span id="2780" data-toggle="tooltip" data-title="Geometry">geometry</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#215"><span data-toggle="tooltip" data-title="typeof Geometry">Geometry</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(points: Vector2[] | Vector3[]) =&gt; Geometry">setFromPoints</span><span class="punctuation">(</span><a href="spike.html#2651"><span data-toggle="tooltip" data-title="any[]">points</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+            <span class="keyword">const</span> <span id="2847" data-toggle="tooltip" data-title="LineBasicMaterial">material</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#225"><span data-toggle="tooltip" data-title="typeof LineBasicMaterial">LineBasicMaterial</span></a><span class="punctuation">(</span><span class="punctuation">{</span> <span id="2882" data-toggle="tooltip" data-title="number">color</span><span class="punctuation">:</span> <span class="number">0x0000ff</span><span class="punctuation">,</span> <span id="2899" data-toggle="tooltip" data-title="number">linewidth</span><span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+            <a href="spike.html#767"><span data-toggle="tooltip" data-title="Line">line</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#244"><span data-toggle="tooltip" data-title="typeof Line">Line</span></a><span class="punctuation">(</span><a href="spike.html#2780"><span data-toggle="tooltip" data-title="Geometry">geometry</span></a><span class="punctuation">,</span> <a href="spike.html#2847"><span data-toggle="tooltip" data-title="LineBasicMaterial">material</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+            <a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a><span class="punctuation">.</span>add<span class="punctuation">(</span><a href="spike.html#767"><span data-toggle="tooltip" data-title="Line">line</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="punctuation">}</span>
+
+        <span class="comment">//</span>
+        <span class="punctuation">{</span>
+            <span class="keyword">const</span> <span id="3046" data-toggle="tooltip" data-title="AxesHelper">axesHelper</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#117"><span data-toggle="tooltip" data-title="typeof AxesHelper">AxesHelper</span></a><span class="punctuation">(</span><span class="number">25</span><span class="punctuation">)</span><span class="punctuation">;</span>
+            <a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a><span class="punctuation">.</span>add<span class="punctuation">(</span><a href="spike.html#3046"><span data-toggle="tooltip" data-title="AxesHelper">axesHelper</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+        <span class="punctuation">}</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="3131" class="member" data-toggle="tooltip" data-title="() =&gt; void">createRenderer</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#34"><span data-toggle="tooltip" data-title="typeof WebGLRenderer">WebGLRenderer</span></a><span class="punctuation">(</span><span class="punctuation">{</span> <span id="3204" data-toggle="tooltip" data-title="true">antialias</span><span class="punctuation">:</span> <span class="keyword">true</span> <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">;</span>
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>setSize<span class="punctuation">(</span><a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientWidth<span class="punctuation">,</span> <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientHeight<span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>setPixelRatio<span class="punctuation">(</span><span data-toggle="tooltip" data-title="Window &amp; typeof globalThis">window</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">devicePixelRatio</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>gammaFactor <span class="punctuation">=</span> <span class="number">2.2</span><span class="punctuation">;</span>
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>gammaOutput <span class="punctuation">=</span> <span class="keyword">true</span><span class="punctuation">;</span>
+
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>physicallyCorrectLights <span class="punctuation">=</span> <span class="keyword">true</span><span class="punctuation">;</span>
+
+        <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>appendChild<span class="punctuation">(</span><a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>domElement<span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="comment">// perform any updates to the scene, called once per frame</span>
+    <span class="comment">// avoid heavy computation here</span>
+    <span class="keyword">function</span> <span id="3539" class="member" data-toggle="tooltip" data-title="() =&gt; void">update</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <span class="comment">// Don&#039;t delete this function!</span>
+
+        <a href="spike.html#609"><span data-toggle="tooltip" data-title="any">controls</span></a><span class="punctuation">.</span>update<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="comment">// if (mouseMoved) {</span>
+
+            <span class="comment">// update the picking ray with the camera and mouse position</span>
+            <a href="spike.html#712"><span data-toggle="tooltip" data-title="Raycaster">raycaster</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(coords: { x: number; y: number; }, camera: Camera) =&gt; void">setFromCamera</span><span class="punctuation">(</span><a href="spike.html#660"><span data-toggle="tooltip" data-title="any">mouse</span></a><span class="punctuation">,</span> <a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+            <span class="comment">// calculate objects intersecting the picking ray</span>
+            <span class="comment">// const [intersection] = raycaster.intersectObjects(scene.children);</span>
+            <span class="comment">// if (intersection &amp;&amp; intersection.object.name === &quot;sphere&quot;) {</span>
+            <span class="comment">// normal = raycaster.ray.at(intersection.distance, new Vector3()).normalize();</span>
+            <span class="comment">// console.log(camera.position);</span>
+            <span class="comment">// console.log(line.geometry.vertices);</span>
+            <span class="punctuation">{</span>
+
+                <span class="keyword">const</span> <span id="4334" data-toggle="tooltip" data-title="any[]">points</span> <span class="punctuation">=</span> <span class="punctuation">[</span><span class="punctuation">]</span><span class="punctuation">;</span>
+                <a href="spike.html#4334"><span data-toggle="tooltip" data-title="any[]">points</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...items: any[]) =&gt; number">push</span><span class="punctuation">(</span><span class="keyword">new</span> <a href="spike.html#206"><span data-toggle="tooltip" data-title="typeof Vector3">Vector3</span></a><span class="punctuation">(</span><span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">,</span> <span class="number">0</span><span class="punctuation">)</span><span class="punctuation">)</span><span class="punctuation">;</span>
+                <a href="spike.html#4334"><span data-toggle="tooltip" data-title="any[]">points</span></a><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(...items: any[]) =&gt; number">push</span><span class="punctuation">(</span><a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a><span class="punctuation">.</span>position<span class="punctuation">)</span><span class="punctuation">;</span>
+    
+                <span class="keyword">const</span> <span id="4471" data-toggle="tooltip" data-title="Geometry">geometry</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#215"><span data-toggle="tooltip" data-title="typeof Geometry">Geometry</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="(points: Vector2[] | Vector3[]) =&gt; Geometry">setFromPoints</span><span class="punctuation">(</span><a href="spike.html#4334"><span data-toggle="tooltip" data-title="any[]">points</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+                <span class="keyword">const</span> <span id="4542" data-toggle="tooltip" data-title="LineBasicMaterial">material</span> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#225"><span data-toggle="tooltip" data-title="typeof LineBasicMaterial">LineBasicMaterial</span></a><span class="punctuation">(</span><span class="punctuation">{</span> <span id="4577" data-toggle="tooltip" data-title="number">color</span><span class="punctuation">:</span> <span class="number">0x0000ff</span><span class="punctuation">,</span> <span id="4594" data-toggle="tooltip" data-title="number">linewidth</span><span class="punctuation">:</span> <span class="number">1</span> <span class="punctuation">}</span><span class="punctuation">)</span><span class="punctuation">;</span>
+    
+                <span class="comment">// scene.remove(line);</span>
+                <a href="spike.html#767"><span data-toggle="tooltip" data-title="Line">line</span></a> <span class="punctuation">=</span> <span class="keyword">new</span> <a href="spike.html#244"><span data-toggle="tooltip" data-title="typeof Line">Line</span></a><span class="punctuation">(</span><a href="spike.html#4471"><span data-toggle="tooltip" data-title="Geometry">geometry</span></a><span class="punctuation">,</span> <a href="spike.html#4542"><span data-toggle="tooltip" data-title="LineBasicMaterial">material</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+                <a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a><span class="punctuation">.</span>add<span class="punctuation">(</span><a href="spike.html#767"><span data-toggle="tooltip" data-title="Line">line</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+    
+                <span class="comment">// console.log(scene);</span>
+            <span class="punctuation">}</span>
+            <span class="comment">//@ts-ignore    </span>
+            <span class="comment">// line.geometry.dynamic = true;</span>
+            <span class="comment">// line.geometry.vertices = [new Vector3(), camera.position];</span>
+            <span class="comment">// line.geometry.setFromPoints([new Vector3(), camera.position]);</span>
+            <span class="comment">// (line.geometry as Geometry).verticesNeedUpdate = true;</span>
+            <span class="comment">// line.geometry = new BufferGeometry().setFromPoints([new Vector3(0, 0, 0), normal.clone().multiplyScalar(30)]);</span>
+            <span class="comment">// (line.material as LineBasicMaterial).color = new Color(0.5,0.5,0.5);</span>
+            <span class="comment">// }</span>
+            <span class="comment">//@ts-ignore</span>
+            <span class="comment">// line.geometry.verticesNeedUpdate = true;</span>
+            <span class="comment">// line.geometry.colorsNeedUpdate = true;</span>
+            <span class="comment">// mouseMoved = false;</span>
+        <span class="comment">// }</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="comment">// render, or &#039;draw a still image&#039;, of the scene</span>
+    <span class="keyword">function</span> <span id="5512" class="member" data-toggle="tooltip" data-title="() =&gt; void">render</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>render<span class="punctuation">(</span><a href="spike.html#645"><span data-toggle="tooltip" data-title="any">scene</span></a><span class="punctuation">,</span> <a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="comment">// a function that will be called every time the window gets resized.</span>
+    <span class="comment">// It can get called a lot, so don&#039;t put any heavy computation in here!</span>
+    <span class="keyword">function</span> <span id="5638" class="member" data-toggle="tooltip" data-title="() =&gt; void">onWindowResize</span><span class="punctuation">(</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <span class="comment">// set the aspect ratio to match the new browser window aspect ratio</span>
+        <a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a><span class="punctuation">.</span>aspect <span class="punctuation">=</span> <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientWidth <span class="punctuation">/</span> <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientHeight<span class="punctuation">;</span>
+
+        <span class="comment">// update the camera&#039;s frustum</span>
+        <a href="spike.html#593"><span data-toggle="tooltip" data-title="any">camera</span></a><span class="punctuation">.</span>updateProjectionMatrix<span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+        <span class="comment">// update the size of the renderer AND the canvas</span>
+        <a href="spike.html#627"><span data-toggle="tooltip" data-title="any">renderer</span></a><span class="punctuation">.</span>setSize<span class="punctuation">(</span><a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientWidth<span class="punctuation">,</span> <a href="spike.html#574"><span data-toggle="tooltip" data-title="any">container</span></a><span class="punctuation">.</span>clientHeight<span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="punctuation">}</span>
+
+    <span class="keyword">function</span> <span id="6191" class="member" data-toggle="tooltip" data-title="(event: any) =&gt; void">onMouseMove</span><span class="punctuation">(</span><span id="6218" data-toggle="tooltip" data-title="any">event</span><span class="punctuation">)</span> <span class="punctuation">{</span>
+
+        <span class="comment">// calculate mouse position in normalized device coordinates</span>
+        <span class="comment">// (-1 to +1) for both components</span>
+        <a href="spike.html#675"><span data-toggle="tooltip" data-title="boolean">mouseMoved</span></a> <span class="punctuation">=</span> <span class="keyword">true</span><span class="punctuation">;</span>
+        <a href="spike.html#660"><span data-toggle="tooltip" data-title="any">mouse</span></a><span class="punctuation">.</span>x <span class="punctuation">=</span> <span class="punctuation">(</span><a href="spike.html#6218"><span data-toggle="tooltip" data-title="any">event</span></a><span class="punctuation">.</span>clientX <span class="punctuation">/</span> <span data-toggle="tooltip" data-title="Window &amp; typeof globalThis">window</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">innerWidth</span><span class="punctuation">)</span> <span class="punctuation">*</span> <span class="number">2</span> <span class="punctuation">-</span> <span class="number">1</span><span class="punctuation">;</span>
+        <a href="spike.html#660"><span data-toggle="tooltip" data-title="any">mouse</span></a><span class="punctuation">.</span>y <span class="punctuation">=</span> <span class="punctuation">-</span> <span class="punctuation">(</span><a href="spike.html#6218"><span data-toggle="tooltip" data-title="any">event</span></a><span class="punctuation">.</span>clientY <span class="punctuation">/</span> <span data-toggle="tooltip" data-title="Window &amp; typeof globalThis">window</span><span class="punctuation">.</span><span data-toggle="tooltip" data-title="number">innerHeight</span><span class="punctuation">)</span> <span class="punctuation">*</span> <span class="number">2</span> <span class="punctuation">+</span> <span class="number">1</span><span class="punctuation">;</span>
+
+        <span class="comment">// console.log(`mouse pos:${mouse.x} ${mouse.y}`)</span>
+
+    <span class="punctuation">}</span>
+
+    <span data-toggle="tooltip" data-title="Window &amp; typeof globalThis">window</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ &lt;K extends &quot;select&quot; | &quot;input&quot; | &quot;progress&quot; | &quot;abort&quot; | &quot;afterprint&quot; | &quot;beforeprint&quot; | &quot;beforeunload&quot; | &quot;blur&quot; | &quot;canplay&quot; | &quot;canplaythrough&quot; | &quot;change&quot; | &quot;click&quot; | &quot;compassneedscalibration&quot; | ... 121 more ... | &quot;unhandledrejection&quot;&gt;(type: K, listener: (this: Window, ev: WindowEventMap[K]) =&gt; any, options?: boolean...">addEventListener</span><span class="punctuation">(</span><span class="string">&#039;resize&#039;</span><span class="punctuation">,</span> <a href="spike.html#5638"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">onWindowResize</span></a><span class="punctuation">)</span><span class="punctuation">;</span>
+    <span data-toggle="tooltip" data-title="Window &amp; typeof globalThis">window</span><span class="punctuation">.</span><span class="member" data-toggle="tooltip" data-title="{ &lt;K extends &quot;select&quot; | &quot;input&quot; | &quot;progress&quot; | &quot;abort&quot; | &quot;afterprint&quot; | &quot;beforeprint&quot; | &quot;beforeunload&quot; | &quot;blur&quot; | &quot;canplay&quot; | &quot;canplaythrough&quot; | &quot;change&quot; | &quot;click&quot; | &quot;compassneedscalibration&quot; | ... 121 more ... | &quot;unhandledrejection&quot;&gt;(type: K, listener: (this: Window, ev: WindowEventMap[K]) =&gt; any, options?: boolean...">addEventListener</span><span class="punctuation">(</span><span class="string">&#039;mousemove&#039;</span><span class="punctuation">,</span> <a href="spike.html#6191"><span class="member" data-toggle="tooltip" data-title="(event: any) =&gt; void">onMouseMove</span></a><span class="punctuation">,</span> <span class="keyword">false</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+    <span class="comment">// call the init function to set everything up</span>
+    <a href="spike.html#779"><span class="member" data-toggle="tooltip" data-title="() =&gt; void">init</span></a><span class="punctuation">(</span><span class="punctuation">)</span><span class="punctuation">;</span>
+
+<span class="punctuation">}</span>
+</code></pre>
+
+        
+    </div>
+            <div class="stickypane">
+                
+    <div class="pagemenu">
+        <h3>On This Page</h3>
+            <ul class="pagetree">
+                
+            </ul>
+    </div>
+                
+    <div class="footer">
+        Copyright © 2020 mistlog
+        <div class="ad">
+            Created with <a href="https://github.com/johtela/litscript">LiTScript</a>
+        </div>
+    </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="../../js/main.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../../../section.tsx"
+  ],
+  "sourcesContent": [
+    "\n<script>\nimport { onMount } from 'svelte';\n\n\nlet canvas;\nonMount(() => {\n  const context = canvas.getContext('2d');\n\n  function onRender(time) {\n    const width = canvas.width;\n    const height = canvas.height;\n    const imageData = context.getImageData(0, 0, width, height);\n\n    for (let x = 0; x < width; ++x) {\n      for (let y = 0; y < height; ++y) {\n        const n = (y * width + x) * 4;\n        imageData.data[n] = x / width * 255;\n        imageData.data[n + 1] = y / height * 255;\n        imageData.data[n + 2] = 0.2 * 255;\n        imageData.data[n + 3] = 255;\n      }\n    }\n\n    context.putImageData(imageData, 0, 0);\n  }\n\n  onRender();\n});\nlet width = 600;\nlet height = 300;\n</script>\n\n\n<div class=\"container\">\n        <canvas bind:this={canvas} width={width} height={height}></canvas>\n    </div>\n\n\n<style>\n.container {\n    display: flex;\n    align-items: center;\n    justify-content: center\n}\n</style>"
+  ],
+  "names": [],
+  "mappings": "AAwCA,UAAU,eAAC,CAAC,AACR,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM;AAC3B,CAAC"
+}

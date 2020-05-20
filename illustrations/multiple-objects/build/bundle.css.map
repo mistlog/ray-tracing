@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "../../../../section.tsx"
+  ],
+  "sourcesContent": [
+    "\n<script>\nimport { onMount } from 'svelte';\nimport { Vector3, Ray } from 'three';\nimport { World } from '../../common/world.js';\nimport { Sphere } from '../../common/sphere.js';\n\n\nlet canvas;\nonMount(() => {\n  function generateColor(ray, world) {\n    const record = world.hit(ray, {\n      min: 0,\n      max: Number.MAX_SAFE_INTEGER\n    });\n\n    if (record) {\n      const {\n        normal\n      } = record;\n      return new Vector3(0.5 * (normal.x + 1), 0.5 * (-normal.y + 1), 0.5 * (-normal.z + 1));\n    }\n\n    const unitDirection = ray.direction.clone().normalize();\n    const t = 0.5 * (unitDirection.y + 1);\n    const blend = new Vector3(0.5, 0.7, 1.0).lerp(new Vector3(1, 1, 1), t);\n    return blend;\n  }\n\n  ;\n  const topLeftCorner = new Vector3(-2, -1, 1);\n  const horizontal = new Vector3(4, 0, 0);\n  const vertical = new Vector3(0, 2, 0);\n  const origin = new Vector3(0, 0, 0);\n  const width = canvas.width;\n  const height = canvas.height;\n  const context = canvas.getContext('2d');\n  const imageData = context.getImageData(0, 0, width, height);\n  const world = new World().addObject(new Sphere(new Vector3(0, 0, 1), 0.5)).addObject(new Sphere(new Vector3(0, 100.5, 1), 100));\n\n  for (let x = 0; x < width; ++x) {\n    for (let y = 0; y < height; ++y) {\n      const u = x / width;\n      const v = y / height;\n      const direction = topLeftCorner.clone().addScaledVector(horizontal, u).addScaledVector(vertical, v);\n      const ray = new Ray(origin, direction);\n      const color = generateColor(ray, world);\n      const n = (y * width + x) * 4;\n      imageData.data[n] = color.x * 255;\n      imageData.data[n + 1] = color.y * 255;\n      imageData.data[n + 2] = color.z * 255;\n      imageData.data[n + 3] = 255;\n    }\n  }\n\n  context.putImageData(imageData, 0, 0);\n});\nlet width = 600;\nlet height = 300;\n</script>\n\n\n<div class=\"container\">\n        <canvas bind:this={canvas} width={width} height={height}></canvas>\n    </div>\n\n\n<style>\n.container {\n    display: flex;\n    align-items: center;\n    justify-content: center\n}\n</style>"
+  ],
+  "names": [],
+  "mappings": "AAoEA,UAAU,eAAC,CAAC,AACR,OAAO,CAAE,IAAI,CACb,WAAW,CAAE,MAAM,CACnB,eAAe,CAAE,MAAM;AAC3B,CAAC"
+}
